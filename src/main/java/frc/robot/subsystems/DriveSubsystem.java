@@ -19,7 +19,7 @@ public class DriveSubsystem extends SubsystemBase {
   VictorSPX motor3 = new VictorSPX(3);
 
   // The robot's drive
-  private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
+  private final DifferentialDrive m_drive = new DifferentialDrive();
 
   /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {}
