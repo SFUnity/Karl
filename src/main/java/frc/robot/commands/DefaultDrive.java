@@ -27,8 +27,6 @@ public class DefaultDrive extends CommandBase {
     m_left = left;
     m_right = right;
     addRequirements(m_drive);
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
   }
 
   // Called when the command is initially scheduled.
