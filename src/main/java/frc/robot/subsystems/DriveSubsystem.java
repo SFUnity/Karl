@@ -47,6 +47,16 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   /**
+   * Drives the robot using arcade controls.
+   *
+   * @param left  the commanded left motor movement
+   * @param right the commanded right motor movement
+   */
+  public void tankDrive(double left, double right) {
+    m_drive.tankDrive(left, right);
+  }
+
+  /**
    * An example method querying a boolean state of the subsystem (for example, a
    * digital sensor).
    *
