@@ -46,4 +46,14 @@ public class DriveSubsystem extends SubsystemBase {
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
   }
+
+  /**
+   * Sets the max output of the drive. Useful for scaling the drive to drive more
+   * slowly.
+   *
+   * @param maxOutput the maximum output to which the drive will be constrained
+   */
+  public void setMaxOutput(double maxOutput) {
+    m_drive.setMaxOutput(maxOutput);
+  }
 }
