@@ -53,12 +53,12 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    new Trigger(m_DriveSubsystem::exampleCondition)
-        .onTrue(new DefaultDrive(m_DriveSubsystem));
+    new Trigger(m_robotDrive::exampleCondition)
+        .onTrue(new DefaultDrive(m_robotDrive, null, null));
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    m_driverController.b().whileTrue(m_DriveSubsystem.exampleMethodCommand());
+    m_driverController.b().whileTrue(m_robotDrive.exampleMethodCommand());
   }
 
   /**
@@ -68,6 +68,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return Autos.exampleAuto(m_DriveSubsystem);
+    return Autos.exampleAuto(m_robotDrive);
   }
 }

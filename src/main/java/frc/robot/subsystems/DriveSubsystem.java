@@ -12,7 +12,7 @@ import frc.robot.Constants.DriveConstants;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 public class DriveSubsystem extends SubsystemBase {
-  // Define motors
+  // Defines the motorcontrollers
   VictorSPX m_frontRight = new VictorSPX(0);
   VictorSPX m_rearRight = new VictorSPX(1);
   VictorSPX m_frontLeft = new VictorSPX(2);
