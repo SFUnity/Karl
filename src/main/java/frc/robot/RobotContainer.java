@@ -4,8 +4,9 @@
 
 package frc.robot;
 
+import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.Autos;
+import frc.robot.commands.DriveDistance;
 import frc.robot.commands.DefaultDrive;
 import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -22,6 +23,11 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
 
+  // A simple auto routine that drives forward a specified distance, and then
+  // stops.
+  private final Command m_simpleAuto = new DriveDistance(
+      AutoConstants.kAutoDriveDistanceInches, AutoConstants.kAutoDriveSpeed, m_robotDrive);
+
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
     new CommandXboxController(OperatorConstants.kDriverControllerPort);
@@ -32,10 +38,10 @@ public class RobotContainer {
     configureBindings();
 
     // Configure default commands
-    // Set the default drive command to split-stick arcade drive
+    // Set the default drive command to split-stick tank drive
     m_robotDrive.setDefaultCommand(
-        // A split-stick arcade command, with forward/backward controlled by the left
-        // hand, and turning controlled by the right.
+        // A split-stick tank drive command, with the left stick controlling the speed 
+        // of the left motor and right stick conrtolling the speed of the right motor.
         new DefaultDrive(
             m_robotDrive,
             () -> -m_driverController.getLeftY(),
@@ -52,13 +58,7 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    new Trigger(m_robotDrive::exampleCondition)
-        .onTrue(new DefaultDrive(m_robotDrive, null, null));
 
-    // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
-    // cancelling on release.
-    m_driverController.b().whileTrue(m_robotDrive.exampleMethodCommand());
   }
 
   /**
@@ -68,6 +68,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return Autos.exampleAuto(m_robotDrive);
+    return m_simpleAuto;
   }
 }
