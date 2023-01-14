@@ -4,27 +4,23 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.Constants.DriveConstants;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 public class DriveSubsystem extends SubsystemBase {
-  // Defines the motorcontrollers
-  VictorSPX m_frontRight = new VictorSPX(0);
-  VictorSPX m_rearRight = new VictorSPX(1);
-  VictorSPX m_frontLeft = new VictorSPX(2);
-  VictorSPX m_rearLeft = new VictorSPX(3);
+  // The motors on the left side of the drive.
+  private final MotorControllerGroup m_leftMotors = new MotorControllerGroup(
+      new PWMSparkMax(DriveConstants.kLeftMotor1Port),
+      new PWMSparkMax(DriveConstants.kLeftMotor2Port));
 
   // The motors on the right side of the drive.
-  private final MotorControllerGroup m_rightMotors = 
-    new MotorControllerGroup(m_frontRight, m_rearRight);
-
-  // The motors on the left side of the drive.
-  private final MotorControllerGroup m_leftMotors =
-    new MotorControllerGroup(m_frontLeft, m_rearLeft);
+  private final MotorControllerGroup m_rightMotors = new MotorControllerGroup(
+      new PWMSparkMax(DriveConstants.kRightMotor1Port),
+      new PWMSparkMax(DriveConstants.kRightMotor2Port));
 
   // The robot's drive
   private final DifferentialDrive m_drive = new DifferentialDrive(m_rightMotors, m_leftMotors);
