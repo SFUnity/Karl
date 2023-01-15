@@ -9,7 +9,7 @@ import frc.robot.subsystems.DriveSubsystem;
 
 public class DriveDistance extends CommandBase {
   private final DriveSubsystem m_drive;
-  private final double m_distance; // For encoders
+  private final double m_distance;
   private final double m_speed;
 
   /**
@@ -34,7 +34,8 @@ public class DriveDistance extends CommandBase {
 
   @Override
   public void execute() {
-      m_drive.tankDrive(m_speed, m_speed);
+    m_drive.resetEncoders();
+    m_drive.tankDrive(m_speed, m_speed);
   }
 
   // Sets speed to 0 when ended
@@ -43,6 +44,8 @@ public class DriveDistance extends CommandBase {
       m_drive.tankDrive(0, 0);
   }
 
-  // Put an isFinished here to check encoder distance
-
+  @Override
+  public boolean isFinished() {
+    return Math.abs(m_drive.getAverageEncoderDistance()) >= m_distance;
+  }
 }
