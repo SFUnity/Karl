@@ -23,7 +23,7 @@ public class DriveSubsystem extends SubsystemBase {
       new PWMSparkMax(DriveConstants.kRightMotor2Port));
 
   // The robot's drive
-  private final DifferentialDrive m_drive = new DifferentialDrive(m_rightMotors, m_leftMotors);
+  private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
 
   // The left-side drive encoder
   private final Encoder m_leftEncoder = new Encoder(
@@ -92,16 +92,6 @@ public class DriveSubsystem extends SubsystemBase {
     return m_rightEncoder;
   }
   
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
-
-  @Override
-  public void simulationPeriodic() {
-    // This method will be called once per scheduler run during simulation
-  }
-
   /**
    * Sets the max output of the drive. Useful for scaling the drive to drive more
    * slowly.
@@ -110,5 +100,15 @@ public class DriveSubsystem extends SubsystemBase {
    */
   public void setMaxOutput(double maxOutput) {
     m_drive.setMaxOutput(maxOutput);
+  }
+  
+  @Override
+  public void periodic() {
+    // This method will be called once per scheduler run
+  }
+
+  @Override
+  public void simulationPeriodic() {
+    // This method will be called once per scheduler run during simulation
   }
 }
