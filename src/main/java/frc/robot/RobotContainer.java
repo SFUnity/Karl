@@ -6,7 +6,6 @@ package frc.robot;
 
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.DriveDistance;
 import frc.robot.commands.DefaultDrive;
 import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -27,11 +26,6 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
-
-  // A simple auto routine that drives forward a specified distance, and then
-  // stops.
-  private final Command m_simpleAuto = new DriveDistance(
-      AutoConstants.kAutoDriveDistanceInches, AutoConstants.kAutoDriveSpeed, m_robotDrive);
 
   // A chooser for autonomous commands
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -54,9 +48,6 @@ public class RobotContainer {
             m_robotDrive,
             () -> -m_driverController.getLeftY(),
             () -> -m_driverController.getRightY()));
-
-    // Add commands to the autonomous command chooser
-    m_chooser.setDefaultOption("Simple Auto", m_simpleAuto);
 
     // Put the chooser on the dashboard
     Shuffleboard.getTab("Autonomous").add(m_chooser);
