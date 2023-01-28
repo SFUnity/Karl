@@ -13,13 +13,13 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class DriveSubsystem extends SubsystemBase {
   // The motors on the left side of the drive.
   private final MotorControllerGroup m_leftMotors = new MotorControllerGroup(
-      new CANSparkMax(1, MotorType.kBrushless),
-      new CANSparkMax(4, MotorType.kBrushless));
+      new CANSparkMax(1, MotorType.kBrushed),
+      new CANSparkMax(4, MotorType.kBrushed));
 
   // The motors on the right side of the drive.
   private final MotorControllerGroup m_rightMotors = new MotorControllerGroup(
-      new CANSparkMax(2, MotorType.kBrushless),
-      new CANSparkMax(3, MotorType.kBrushless));
+      new CANSparkMax(2, MotorType.kBrushed),
+      new CANSparkMax(3, MotorType.kBrushed));
 
   // The robot's drive
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
