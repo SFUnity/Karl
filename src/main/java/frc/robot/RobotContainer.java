@@ -4,15 +4,14 @@
 
 package frc.robot;
 
-import frc.robot.Constants.AutoConstants;
+
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.DefaultDrive;
 import frc.robot.subsystems.DriveSubsystem;
-import edu.wpi.first.wpilibj2.command.Command;
+
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -26,9 +25,6 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
-
-  // A chooser for autonomous commands
-  SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
@@ -48,9 +44,6 @@ public class RobotContainer {
             m_robotDrive,
             () -> -m_driverController.getLeftY(),
             () -> -m_driverController.getRightY()));
-
-    // Put the chooser on the dashboard
-    Shuffleboard.getTab("Autonomous").add(m_chooser);
   }
 
   /**
@@ -69,14 +62,5 @@ public class RobotContainer {
    */
   private void configureBindings() {
 
-  }
-
-  /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
-  public Command getAutonomousCommand() {
-    return m_chooser.getSelected();
   }
 }
