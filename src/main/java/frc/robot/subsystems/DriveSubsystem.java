@@ -19,7 +19,7 @@ public class DriveSubsystem extends SubsystemBase {
   // The motors on the right side of the drive.
   private final MotorControllerGroup m_rightMotors = new MotorControllerGroup(
       new CANSparkMax(2, MotorType.kBrushed),
-      new CANSparkMax(3, MotorType.kBrushed ));
+      new CANSparkMax(3, MotorType.kBrushed));
 
   // The robot's drive
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
