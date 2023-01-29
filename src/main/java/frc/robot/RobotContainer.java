@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.commands.MaxDriveSpeed;
+import frc.robot.commands.StraightForward;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -81,6 +82,9 @@ public class RobotContainer {
     // While holding the left shoulder button, drive at max speed
     new Trigger(m_driverController.leftBumper())
         .whileTrue(new MaxDriveSpeed());
+    // While holding the left shoulder button, drive at max speed
+    new Trigger(m_driverController.leftTrigger())
+        .whileTrue(new StraightForward(m_robotDrive));
   }
 
   /**
