@@ -41,7 +41,7 @@ public class DriveSubsystem extends SubsystemBase {
       DriveConstants.kRightEncoderReversed);
 
   // ADIS16470 plugged into the MXP port
-  public final ADIS16470_IMU gyro = new ADIS16470_IMU();
+  private final ADIS16470_IMU gyro = new ADIS16470_IMU();
 
   /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {
@@ -55,7 +55,7 @@ public class DriveSubsystem extends SubsystemBase {
     m_rightEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
 
     // Places a compass indicator for the gyro heading on the dashboard
-    Shuffleboard.getTab("Example tab").add(gyro);
+    Shuffleboard.getTab("Heading").add(gyro);
   }
 
   /**
