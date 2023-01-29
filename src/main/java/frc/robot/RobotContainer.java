@@ -60,7 +60,7 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    // While holding the left shoulder button, drive at half speed
+    // While holding the left shoulder button, drive at max speed
     new Trigger(m_driverController.leftBumper())
         .whileTrue(new MaxDriveSpeed());
   }
