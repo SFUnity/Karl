@@ -15,6 +15,9 @@ public class StraightForward extends CommandBase {
         addRequirements(m_drive);
     }
 
+    // Make not interruptible
+    public static final InterruptionBehavior kCancelIncoming = InterruptionBehavior.kCancelIncoming;
+
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
