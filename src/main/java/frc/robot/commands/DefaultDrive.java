@@ -7,6 +7,7 @@ package frc.robot.commands;
 import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import java.util.function.DoubleSupplier;
+import frc.robot.Constants;
 
 /** An example command that uses an example subsystem. */
 public class DefaultDrive extends CommandBase {
@@ -36,7 +37,7 @@ public class DefaultDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_drive.tankDrive(m_left.getAsDouble(), m_right.getAsDouble());
+    m_drive.tankDrive(m_left.getAsDouble() * Constants.DriveConstants.KControllerSensitivity, m_right.getAsDouble() * Constants.DriveConstants.KControllerSensitivity);
   }
   
   // Called once the command ends or is interrupted.

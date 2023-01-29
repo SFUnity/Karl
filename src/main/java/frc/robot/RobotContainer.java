@@ -62,6 +62,6 @@ public class RobotContainer {
   private void configureBindings() {
     // While holding the left shoulder button, drive at half speed
     new Trigger(m_driverController.leftBumper())
-        .whileTrue(new MaxDriveSpeed(m_robotDrive));
+        .whileTrue(new MaxDriveSpeed());
   }
 }

@@ -4,23 +4,20 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 
 public class MaxDriveSpeed extends CommandBase {
-  private final DriveSubsystem m_drive;
 
-  public MaxDriveSpeed(DriveSubsystem drive) {
-    m_drive = drive;
-  }
+  public MaxDriveSpeed() {}
 
   @Override
   public void initialize() {
-    m_drive.setMaxOutput(1.0);
+    Constants.DriveConstants.KControllerSensitivity = 1.0;
   }
 
   @Override
   public void end(boolean interrupted) {
-    m_drive.setMaxOutput(0.75);
+    Constants.DriveConstants.KControllerSensitivity = 0.75;
   }
 }
