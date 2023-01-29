@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import com.revrobotics.CANSparkMax;
@@ -13,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.AnalogInput;
 
 public class DriveSubsystem extends SubsystemBase {
   // The motors on the left side of the drive.
@@ -42,6 +44,9 @@ public class DriveSubsystem extends SubsystemBase {
 
   // ADIS16470 plugged into the MXP port
   private final ADIS16470_IMU gyro = new ADIS16470_IMU();
+
+  // Ultrasonic sensor
+  private final AnalogInput ultrasonic = new AnalogInput(0);
 
   /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {
@@ -74,6 +79,13 @@ public class DriveSubsystem extends SubsystemBase {
     m_rightEncoder.reset();
   }
 
+  public double getDistance() {
+    double rawValue = ultrasonic.getValue();
+    double voltage_scale_factor = 5 / RobotController.getVoltage5V();
+    double currentDistanceInches = rawValue * voltage_scale_factor * 0.0492;
+    return currentDistanceInches;
+  }
+
   /**
    * Gets the average distance of the TWO encoders.
    *
@@ -100,7 +112,7 @@ public class DriveSubsystem extends SubsystemBase {
   public Encoder getRightEncoder() {
     return m_rightEncoder;
   }
-  
+
   /**
    * Sets the max output of the drive. Useful for scaling the drive to drive more
    * slowly.
