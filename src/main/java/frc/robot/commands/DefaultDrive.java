@@ -9,9 +9,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import java.util.function.DoubleSupplier;
 import frc.robot.Constants;
 
-/** An example command that uses an example subsystem. */
 public class DefaultDrive extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final DriveSubsystem m_drive;
   private final DoubleSupplier m_left;
   private final DoubleSupplier m_right;
