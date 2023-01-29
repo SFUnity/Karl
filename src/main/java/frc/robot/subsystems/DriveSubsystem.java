@@ -11,6 +11,8 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
+import edu.wpi.first.wpilibj.ADIS16470_IMU;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 
 public class DriveSubsystem extends SubsystemBase {
   // The motors on the left side of the drive.
@@ -38,6 +40,9 @@ public class DriveSubsystem extends SubsystemBase {
       DriveConstants.kRightEncoderPorts[1],
       DriveConstants.kRightEncoderReversed);
 
+  // ADIS16470 plugged into the MXP port
+  public final ADIS16470_IMU gyro = new ADIS16470_IMU();
+
   /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {
     // We need to invert one side of the drivetrain so that positive voltages
@@ -48,6 +53,9 @@ public class DriveSubsystem extends SubsystemBase {
     // Sets the distance per pulse for the encoders
     m_leftEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
     m_rightEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
+
+    // Places a compass indicator for the gyro heading on the dashboard
+    Shuffleboard.getTab("Example tab").add(gyro);
   }
 
   /**
