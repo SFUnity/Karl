@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.DefaultDrive;
+import frc.robot.commands.HalfDriveSpeed;
 import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -64,5 +65,8 @@ public class RobotContainer {
     // While holding the left shoulder button, drive at max speed
     new Trigger(m_driverController.leftBumper())
         .whileTrue(new MaxDriveSpeed());
+    // While holding the right shoulder button, drive at half speed
+    new Trigger(m_driverController.rightBumper())
+        .whileTrue(new HalfDriveSpeed());
   }
 }
