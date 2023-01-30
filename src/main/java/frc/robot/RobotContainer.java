@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.commands.MaxDriveSpeed;
 import frc.robot.commands.StraightForward;
+import frc.robot.commands.StraightBack;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -84,8 +85,10 @@ public class RobotContainer {
         .whileTrue(new MaxDriveSpeed());
     // Left trigger drives forward
     new Trigger(m_driverController.leftTrigger(0.01))
-        .whileTrue(new StraightForward(m_robotDrive, () -> -m_driverController.getLeftTriggerAxis(),
-            () -> -m_driverController.getRightTriggerAxis()));
+        .whileTrue(new StraightForward(m_robotDrive, () -> -m_driverController.getLeftTriggerAxis()));
+    // Right trigger drives back
+    new Trigger(m_driverController.rightTrigger(0.01))
+        .whileTrue(new StraightBack(m_robotDrive, () -> -m_driverController.getRightTriggerAxis()));
   }
 
   /**

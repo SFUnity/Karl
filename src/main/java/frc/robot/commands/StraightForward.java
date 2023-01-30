@@ -8,19 +8,16 @@ import java.util.function.DoubleSupplier;
 public class StraightForward extends CommandBase {
     private final DriveSubsystem m_drive;
     private final DoubleSupplier m_left;
-    private final DoubleSupplier m_right;
 
     /**
      * Creates a new DefaultDrive.
      *
      * @param subsystem The drive subsystem this command wil run on.
      * @param left      The control input for the left motors
-     * @param right     The control input for the right motors
      */
-    public StraightForward(DriveSubsystem drive, DoubleSupplier left, DoubleSupplier right) {
+    public StraightForward(DriveSubsystem drive, DoubleSupplier left) {
         m_drive = drive;
         m_left = left;
-        m_right = right;
         addRequirements(m_drive);
     }
 
@@ -31,7 +28,7 @@ public class StraightForward extends CommandBase {
     @Override
     public void execute() {
         m_drive.tankDrive(m_left.getAsDouble() * Constants.DriveConstants.KControllerSensitivity,
-                m_right.getAsDouble() * Constants.DriveConstants.KControllerSensitivity);
+                m_left.getAsDouble() * Constants.DriveConstants.KControllerSensitivity);
     }
 
     // Called once the command ends or is interrupted.
