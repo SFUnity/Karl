@@ -66,7 +66,7 @@ public class RobotContainer {
         .whileTrue(new MaxDriveSpeed());
     // Left trigger drives forward
     new Trigger(m_driverController.leftTrigger(0.01))
-        .whileTrue(new StraightForward(m_robotDrive, () -> -m_driverController.getLeftTriggerAxis()));
+        .whileTrue(new StraightForward(m_robotDrive, () -> m_driverController.getLeftTriggerAxis()));
     // Right trigger drives back
     new Trigger(m_driverController.rightTrigger(0.01))
         .whileTrue(new StraightBack(m_robotDrive, () -> -m_driverController.getRightTriggerAxis()));
