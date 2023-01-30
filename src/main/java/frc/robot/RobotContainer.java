@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.MaxDriveSpeed;
 import frc.robot.commands.StraightForward;
+import frc.robot.commands.StraightBack;
+
 /**
  * This class is where the bulk of the robot should be declared. Since
  * Command-based is a
@@ -62,8 +64,11 @@ public class RobotContainer {
     // While holding the left shoulder button, drive at max speed
     new Trigger(m_driverController.leftBumper())
         .whileTrue(new MaxDriveSpeed());
-    // While holding the left shoulder button, drive at max speed
-    new Trigger(m_driverController.leftTrigger())
-        .whileTrue(new StraightForward(m_robotDrive));
+    // Left trigger drives forward
+    new Trigger(m_driverController.leftTrigger(0.01))
+        .whileTrue(new StraightForward(m_robotDrive, () -> -m_driverController.getLeftTriggerAxis()));
+    // Right trigger drives back
+    new Trigger(m_driverController.rightTrigger(0.01))
+        .whileTrue(new StraightBack(m_robotDrive, () -> -m_driverController.getRightTriggerAxis()));
   }
 }
