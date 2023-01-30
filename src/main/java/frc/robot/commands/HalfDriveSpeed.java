@@ -9,11 +9,11 @@ public class HalfDriveSpeed extends CommandBase {
 
   @Override
   public void initialize() {
-    Constants.DriveConstants.KControllerSensitivity = 0.5;
+    Constants.DriveConstants.kSpeed = 0.5;
   }
 
   @Override
   public void end(boolean interrupted) {
-    Constants.DriveConstants.KControllerSensitivity = 0.75;
+    Constants.DriveConstants.kSpeed = 0.75;
   }
 }

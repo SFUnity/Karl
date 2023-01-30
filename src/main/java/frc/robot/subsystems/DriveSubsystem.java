@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class DriveSubsystem extends SubsystemBase {
   // The motors on the left side of the drive.
@@ -39,7 +40,8 @@ public class DriveSubsystem extends SubsystemBase {
    * @param right the commanded right motor movement
    */
   public void tankDrive(double left, double right) {
-    m_drive.tankDrive(left, right);
+    m_drive.tankDrive(left * Constants.DriveConstants.kSpeed, 
+                      right * Constants.DriveConstants.kSpeed);
   }
   
   /**

@@ -33,10 +33,8 @@ public class DefaultDrive extends CommandBase {
     m_right = right;
     m_forward = forward;
     m_backward = backward;
-    leftFinal = m_left.getAsDouble() * Constants.DriveConstants.KControllerSensitivity * 
-      m_forward.getAsDouble() * m_backward.getAsDouble() / 3.0;
-    rightFinal = m_right.getAsDouble() * Constants.DriveConstants.KControllerSensitivity *
-        m_forward.getAsDouble() * m_backward.getAsDouble() / 3.0;
+    leftFinal = m_left.getAsDouble() * m_forward.getAsDouble() * m_backward.getAsDouble() / 3.0;
+    rightFinal = m_right.getAsDouble() * m_forward.getAsDouble() * m_backward.getAsDouble() / 3.0;
     addRequirements(m_drive);
   }
 
