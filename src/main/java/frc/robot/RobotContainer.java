@@ -82,9 +82,10 @@ public class RobotContainer {
     // While holding the left shoulder button, drive at max speed
     new Trigger(m_driverController.leftBumper())
         .whileTrue(new MaxDriveSpeed());
-    // While holding the left shoulder button, drive at max speed
-    new Trigger(m_driverController.leftTrigger())
-        .whileTrue(new StraightForward(m_robotDrive));
+    // Left trigger drives forward
+    new Trigger(m_driverController.leftTrigger(0.01))
+        .whileTrue(new StraightForward(m_robotDrive, () -> -m_driverController.getLeftTriggerAxis(),
+            () -> -m_driverController.getRightTriggerAxis()));
   }
 
   /**
