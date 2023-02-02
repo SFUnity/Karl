@@ -10,13 +10,18 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import edu.wpi.first.wpilibj.simulation.ADIS16470_IMUSim;
+import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim;
+import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim.KitbotGearing;
+import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim.KitbotMotor;
+import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim.KitbotWheelSize;
+import edu.wpi.first.wpilibj.simulation.EncoderSim;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.AnalogInput;
 
 public class DriveSubsystem extends SubsystemBase {
@@ -44,9 +49,26 @@ public class DriveSubsystem extends SubsystemBase {
       DriveConstants.kRightEncoderPorts[0],
       DriveConstants.kRightEncoderPorts[1],
       DriveConstants.kRightEncoderReversed);
+  
+  // These are our EncoderSim objects, which we will only use in simulation
+  private EncoderSim m_leftEncoderSim = new EncoderSim(m_leftEncoder);
+  private EncoderSim m_rightEncoderSim = new EncoderSim(m_rightEncoder);
+
+  // Sim Drivetrain
+  private DifferentialDrivetrainSim m_driveSim = DifferentialDrivetrainSim.createKitbotSim(
+      KitbotMotor.kDualCIMPerSide, // 2 CIMs per side.
+      KitbotGearing.k10p71, // 10.71:1
+      KitbotWheelSize.kSixInch, // 6" diameter wheels.
+      null // No measurement noise.
+  );
 
   // ADIS16470 plugged into the MXP port
   private final ADIS16470_IMU gyro = new ADIS16470_IMU();
+
+  // Create the simulated gyro object, used for setting the gyro
+  // angle. Like EncoderSim, this does not need to be commented out
+  // when deploying code to the roboRIO.
+  private ADIS16470_IMUSim m_gyroSim = new ADIS16470_IMUSim(gyro);
 
   // Ultrasonic sensor
   private final AnalogInput ultrasonic = new AnalogInput(0);
@@ -71,9 +93,6 @@ public class DriveSubsystem extends SubsystemBase {
     // Sets the distance per pulse for the encoders
     m_leftEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
     m_rightEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
-
-    // Places a compass indicator for the gyro heading on the dashboard
-    Shuffleboard.getTab("Heading").add(gyro);
   }
 
   /**
@@ -160,5 +179,24 @@ public class DriveSubsystem extends SubsystemBase {
   @Override
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
+    
+    // Set the inputs to the system. Note that we need to convert
+    // the [-1, 1] PWM signal to voltage by multiplying it by the
+    // robot controller voltage.
+    m_driveSim.setInputs(
+        m_leftMotors.get() * RobotController.getInputVoltage(),
+        m_rightMotors.get() * RobotController.getInputVoltage());
+
+    // Advance the model by 20 ms. Note that if you are running this
+    // subsystem in a separate thread or have changed the nominal timestep
+    // of TimedRobot, this value needs to match it.
+    m_driveSim.update(0.02);
+
+    // Update all of our sensors.
+    m_leftEncoderSim.setDistance(m_driveSim.getLeftPositionMeters());
+    m_leftEncoderSim.setRate(m_driveSim.getLeftVelocityMetersPerSecond());
+    m_rightEncoderSim.setDistance(m_driveSim.getRightPositionMeters());
+    m_rightEncoderSim.setRate(m_driveSim.getRightVelocityMetersPerSecond());
+    m_gyroSim.setGyroAngleX(-m_driveSim.getHeading().getDegrees());
   }
 }
