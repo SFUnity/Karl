@@ -32,8 +32,8 @@ public class DefaultDrive extends CommandBase {
     m_right = right;
     m_forward = forward;
     m_backward = backward;
-    leftFinal = (m_left.getAsDouble() * (m_forward.getAsDouble() * m_backward.getAsDouble() + 1) - 1) / 3.0;
-    rightFinal = (m_right.getAsDouble() * (m_forward.getAsDouble() * m_backward.getAsDouble() + 1) - 1) / 3.0;
+    leftFinal = m_left.getAsDouble() * (m_forward.getAsDouble() + 1.0) * (m_backward.getAsDouble() + 1.0) / 5.0;
+    rightFinal = m_right.getAsDouble() * (m_forward.getAsDouble() + 1.0) * (m_backward.getAsDouble() + 1.0) / 5.0;
     addRequirements(m_drive);
   }
 
