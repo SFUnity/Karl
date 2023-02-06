@@ -9,7 +9,7 @@ public class HalfDriveSpeed extends CommandBase {
 
   @Override
   public void initialize() {
-    Constants.DriveConstants.kSpeed = 0.5;
+    Constants.DriveConstants.kSpeed = 0.6;
   }
 
   @Override

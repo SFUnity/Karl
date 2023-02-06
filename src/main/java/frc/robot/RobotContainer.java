@@ -63,10 +63,10 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // While holding the left shoulder button, drive at max speed
-    new Trigger(m_driverController.leftBumper())
+    new Trigger(m_driverController.rightBumper())
         .whileTrue(new MaxDriveSpeed());
     // While holding the right shoulder button, drive at half speed
-    new Trigger(m_driverController.rightBumper())
+    new Trigger(m_driverController.leftBumper())
         .whileTrue(new HalfDriveSpeed());
   }
 }
