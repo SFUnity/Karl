@@ -4,13 +4,17 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.CANSparkMax.IdleMode;
+import frc.robot.Constants.ArmConstants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ArmSubsystem extends SubsystemBase {
   // The motors for the arm and the intake
-    CANSparkMax arm = new CANSparkMax(5, MotorType.kBrushless);
-    CANSparkMax intake = new CANSparkMax(6, MotorType.kBrushless);
+  CANSparkMax arm = new CANSparkMax(5, MotorType.kBrushless);
+  CANSparkMax intake = new CANSparkMax(6, MotorType.kBrushless);
 
   // Creates a new ArmSubsystem
   public ArmSubsystem() {
@@ -21,7 +25,7 @@ public class ArmSubsystem extends SubsystemBase {
      */
     arm.setInverted(true);
     arm.setIdleMode(IdleMode.kBrake);
-    arm.setSmartCurrentLimit(ARM_CURRENT_LIMIT_A);
+    arm.setSmartCurrentLimit(ArmConstants.ARM_CURRENT_LIMIT_A);
     intake.setInverted(false);
     intake.setIdleMode(IdleMode.kBrake);
   }
@@ -53,17 +57,22 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public void raiseArm() {
-    setArmMotor(Constants.ARM_OUTPUT_POWER);
+    setArmMotor(ArmConstants.ARM_OUTPUT_POWER);
   }
 
   public void lowerArm() {
-    setArmMotor(-Constants.ARM_OUTPUT_POWER);
+    setArmMotor(-ArmConstants.ARM_OUTPUT_POWER);
   }
 
   public void idleArm() {
     setArmMotor(0.0);
   }
 
+  public void cubeInConeOut() {
+    ArmConstants.intakePower = ArmConstants.INTAKE_OUTPUT_POWER;
+    ArmConstants.intakeAmps = ArmConstants.INTAKE_CURRENT_LIMIT_A;
+    ArmConstants.lastGamePiece = ArmConstants.CUBE;
+  }
 
   @Override
   public void periodic() {

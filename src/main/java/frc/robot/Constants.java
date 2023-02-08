@@ -36,19 +36,19 @@ public final class Constants {
   
   public static final class ArmConstants {
     // How many amps the arm motor can use.
-    static final int ARM_CURRENT_LIMIT_A = 20;
+    public static final int ARM_CURRENT_LIMIT_A = 20;
 
     // Percent output to run the arm up/down at
-    static final double ARM_OUTPUT_POWER = 0.4;
+    public static final double ARM_OUTPUT_POWER = 0.4;
 
     // How many amps the intake can use while picking up
-    static final int INTAKE_CURRENT_LIMIT_A = 25;
+    public static final int INTAKE_CURRENT_LIMIT_A = 25;
 
     // How many amps the intake can use while holding
     static final int INTAKE_HOLD_CURRENT_LIMIT_A = 5;
 
     // Percent output for intaking
-    static final double INTAKE_OUTPUT_POWER = 1.0;
+    public static final double INTAKE_OUTPUT_POWER = 1.0;
 
     // Percent output for holding
     static final double INTAKE_HOLD_POWER = 0.07;
@@ -73,8 +73,8 @@ public final class Constants {
     public static final int NOTHING = 3;
     public static int lastGamePiece;
 
-    public double intakePower;
-    public int intakeAmps;
+    public static double intakePower;
+    public static int intakeAmps;
   }
 
   public static final class AutoConstants {
