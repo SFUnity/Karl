@@ -3,7 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
-
+import edu.wpi.first.math.util.Units;
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -74,5 +74,14 @@ public final class Constants {
   
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
+  }
+
+  public static class VisionConstants {
+    public static final double cameraHeightMeters = Units.inchesToMeters(0);
+    public static final double targetHeightMeters = Units.feetToMeters(0);
+
+    public static final double cameraPitchRadians = Units.degreesToRadians(0);
+    public static final double goalRangeMeters = Units.feetToMeters(1);
+    
   }
 }
