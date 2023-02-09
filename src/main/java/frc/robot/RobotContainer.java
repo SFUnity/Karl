@@ -16,10 +16,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.commands.MaxDriveSpeed;
-import frc.robot.commands.StraightForward;
-import frc.robot.commands.StraightBack;
 import frc.robot.commands.HalfDriveSpeed;
-import frc.robot.commands.MaxDriveSpeed;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
