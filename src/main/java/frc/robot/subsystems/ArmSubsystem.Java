@@ -72,6 +72,28 @@ public class ArmSubsystem extends SubsystemBase {
     ArmConstants.intakePower = ArmConstants.INTAKE_OUTPUT_POWER;
     ArmConstants.intakeAmps = ArmConstants.INTAKE_CURRENT_LIMIT_A;
     ArmConstants.lastGamePiece = ArmConstants.CUBE;
+    setIntakeMotor(ArmConstants.intakePower, ArmConstants.intakeAmps);
+  }
+
+  public void coneInCubeOut() {
+    ArmConstants.intakePower = -ArmConstants.INTAKE_OUTPUT_POWER;
+    ArmConstants.intakeAmps = ArmConstants.INTAKE_CURRENT_LIMIT_A;
+    ArmConstants.lastGamePiece = ArmConstants.CONE;
+    setIntakeMotor(ArmConstants.intakePower, ArmConstants.intakeAmps);
+  }
+
+  public void holdPiece() {
+    if (ArmConstants.lastGamePiece == ArmConstants.CUBE) {
+      ArmConstants.intakePower = ArmConstants.INTAKE_HOLD_POWER;
+      ArmConstants.intakeAmps = ArmConstants.INTAKE_HOLD_CURRENT_LIMIT_A;
+    } else if (ArmConstants.lastGamePiece == ArmConstants.CONE) {
+      ArmConstants.intakePower = -ArmConstants.INTAKE_HOLD_POWER;
+      ArmConstants.intakeAmps = ArmConstants.INTAKE_HOLD_CURRENT_LIMIT_A;
+    } else {
+      ArmConstants.intakePower = 0.0;
+      ArmConstants.intakeAmps = 0;
+    }
+    setIntakeMotor(ArmConstants.intakePower, ArmConstants.intakeAmps);
   }
 
   @Override
