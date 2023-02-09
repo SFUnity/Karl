@@ -83,5 +83,8 @@ public final class Constants {
     public static final double cameraPitchRadians = Units.degreesToRadians(0);
     public static final double goalRangeMeters = Units.feetToMeters(1);
     
+    public static final double LINEAR_P = 0.1;
+    public static final double LINEAR_D = 0.0;
+
   }
 }

@@ -17,11 +17,12 @@ public class VisionSubsystem extends SubsystemBase {
     public PhotonPipelineResult getLastResult() {
         var result = camera.getLatestResult();
         return result;
-  }
+    }
 
     public boolean booltargets(PhotonPipelineResult result) {
         return result.hasTargets();
     }
+
 
   @Override
   public void periodic() {
