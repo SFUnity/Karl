@@ -36,7 +36,7 @@ public class RobotContainer {
   // A simple auto routine that drives forward a specified distance, and then
   // stops.
   private final Command m_simpleAuto = new DriveDistance(
-      AutoConstants.kAutoDriveDistanceInches, AutoConstants.kAutoDriveSpeed, m_robotDrive);
+      AutoConstants.kAutoDriveDistanceInches, AutoConstants.kAutoProportional, m_robotDrive);
 
   // A chooser for autonomous commands
   SendableChooser<Command> m_chooser = new SendableChooser<>();

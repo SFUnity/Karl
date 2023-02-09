@@ -11,17 +11,18 @@ public class DriveDistance extends CommandBase {
   private final DriveSubsystem m_drive;
   private final double m_distance;
   private final double m_speed;
+  private static double error;
 
   /**
    * Creates a new DriveDistance.
    *
    * @param inches The number of inches the robot will drive
-   * @param speed  The speed at which the robot will drive
+   * @param kP  The speed at which the robot will drive
    * @param drive  The drive subsystem on which this command will run
    */
-  public DriveDistance(double inches, double speed, DriveSubsystem drive) {
+  public DriveDistance(double inches, double kP, DriveSubsystem drive) {
     m_distance = inches;
-    m_speed = speed;
+    m_speed = kP * error;
     m_drive = drive;
     addRequirements(m_drive);
   }
@@ -34,6 +35,7 @@ public class DriveDistance extends CommandBase {
 
   @Override
   public void execute() {
+    error = m_distance - m_drive.getAverageEncoderDistance();
     m_drive.tankDrive(m_speed, m_speed);
   }
 
