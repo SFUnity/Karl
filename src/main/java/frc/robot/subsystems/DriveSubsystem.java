@@ -70,7 +70,8 @@ public class DriveSubsystem extends SubsystemBase {
    * @param right the commanded right motor movement
    */
   public void tankDrive(double left, double right) {
-    m_drive.tankDrive(left, right);
+    m_drive.tankDrive(left * DriveConstants.kSpeed,
+        right * DriveConstants.kSpeed);
   }
 
   /** Resets the drive encoders to currently read a position of 0. */

@@ -18,6 +18,8 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.commands.MaxDriveSpeed;
 import frc.robot.commands.StraightForward;
 import frc.robot.commands.StraightBack;
+import frc.robot.commands.HalfDriveSpeed;
+import frc.robot.commands.MaxDriveSpeed;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -58,7 +60,9 @@ public class RobotContainer {
         new DefaultDrive(
             m_robotDrive,
             () -> -m_driverController.getLeftY(),
-            () -> -m_driverController.getRightY()));
+            () -> -m_driverController.getRightY(),
+            () -> m_driverController.getRightTriggerAxis(),
+            () -> -m_driverController.getLeftTriggerAxis()));
 
     // Add commands to the autonomous command chooser
     m_chooser.setDefaultOption("Simple Auto", m_simpleAuto);
@@ -83,14 +87,11 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // While holding the left shoulder button, drive at max speed
-    new Trigger(m_driverController.leftBumper())
+    new Trigger(m_driverController.rightBumper())
         .whileTrue(new MaxDriveSpeed());
-    // Left trigger drives forward
-    new Trigger(m_driverController.leftTrigger(0.01))
-        .whileTrue(new StraightForward(m_robotDrive, () -> -m_driverController.getLeftTriggerAxis()));
-    // Right trigger drives back
-    new Trigger(m_driverController.rightTrigger(0.01))
-        .whileTrue(new StraightBack(m_robotDrive, () -> -m_driverController.getRightTriggerAxis()));
+    // While holding the right shoulder button, drive at half speed
+    new Trigger(m_driverController.leftBumper())
+        .whileTrue(new HalfDriveSpeed());
   }
 
   /**

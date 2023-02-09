@@ -13,18 +13,24 @@ public class DefaultDrive extends CommandBase {
   private final DriveSubsystem m_drive;
   private final DoubleSupplier m_left;
   private final DoubleSupplier m_right;
+  private final DoubleSupplier m_forward;
+  private final DoubleSupplier m_backward;
 
   /**
    * Creates a new DefaultDrive.
    *
    * @param subsystem The drive subsystem this command wil run on.
-   * @param left   The control input for the left motors
-   * @param right  The control input for the right motors
+   * @param left      The control input for the left motors
+   * @param right     The control input for the right motors
+   * @param forward   The control input for the right motors
+   * @param backward  The control input for the right motors
    */
-  public DefaultDrive(DriveSubsystem subsystem, DoubleSupplier left, DoubleSupplier right) {
+  public DefaultDrive(DriveSubsystem subsystem, DoubleSupplier left, DoubleSupplier right, DoubleSupplier forward, DoubleSupplier backward) {
     m_drive = subsystem;
     m_left = left;
     m_right = right;
+    m_forward = forward;
+    m_backward = backward;
     addRequirements(m_drive);
   }
 
@@ -35,8 +41,8 @@ public class DefaultDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_drive.tankDrive(m_left.getAsDouble() * Constants.DriveConstants.KControllerSensitivity,
-        m_right.getAsDouble() * Constants.DriveConstants.KControllerSensitivity);
+    m_drive.tankDrive((m_left.getAsDouble() + m_forward.getAsDouble() + (m_backward.getAsDouble() * 5) / 3.0),
+        (m_right.getAsDouble() + m_forward.getAsDouble() + (m_backward.getAsDouble() * 5) / 3.0));
   }
   
   // Called once the command ends or is interrupted.
