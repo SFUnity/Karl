@@ -12,7 +12,9 @@ public class VisionAlignment extends CommandBase {
   public void initialize() {
   }
 
-  
+  public void execute() {
+    var result1 = getLastResult();
+  }
 
   @Override
   public void end(boolean interrupted) {
