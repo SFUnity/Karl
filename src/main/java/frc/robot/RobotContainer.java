@@ -64,7 +64,8 @@ public class RobotContainer {
 
     // Set the default arm command
     m_robotArm.setDefaultCommand(
-        new DefaultArm(m_robotArm));
+        new DefaultArm(
+            m_robotArm, m_driverController.x(), m_driverController.a()));
 
     // Add commands to the autonomous command chooser
     m_chooser.setDefaultOption("Simple Auto", m_simpleAuto);
