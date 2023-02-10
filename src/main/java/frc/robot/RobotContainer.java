@@ -11,6 +11,8 @@ import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.MaxDriveSpeed;
+import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.commands.DefaultArm;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -24,6 +26,7 @@ import frc.robot.commands.MaxDriveSpeed;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
+  private final ArmSubsystem m_robotArm = new ArmSubsystem();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
@@ -45,8 +48,10 @@ public class RobotContainer {
             () -> -m_driverController.getRightY(),
             () -> m_driverController.getRightTriggerAxis(),
             () -> -m_driverController.getLeftTriggerAxis()));
+            
+    // Set the default arm command
+    m_robotArm.setDefaultCommand(new DefaultArm(m_robotArm));
   }
-
   /**
    * Use this method to define your trigger->command mappings. Triggers can be
    * created via the
