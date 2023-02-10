@@ -6,11 +6,13 @@ package frc.robot.subsystems;
 import org.photonvision.PhotonCamera;
 import org.photonvision.targeting.PhotonPipelineResult;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
+import frc.robot.Constants.VisionConstants;;
 
 public class VisionSubsystem extends SubsystemBase {
   PhotonCamera camera = new PhotonCamera("KarlEyes");
+  public PIDController turnController = new PIDController(VisionConstants.LINEAR_P, 0, VisionConstants.LINEAR_D);
   public VisionSubsystem() {
   }
 

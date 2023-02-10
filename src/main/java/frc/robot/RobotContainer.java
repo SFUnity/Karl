@@ -8,6 +8,7 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.HalfDriveSpeed;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.VisionSubsystem;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.MaxDriveSpeed;
@@ -25,7 +26,7 @@ import frc.robot.commands.VisionAlignment;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
-
+  private final VisionSubsystem m_robotVision = new VisionSubsystem();
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
     new CommandXboxController(OperatorConstants.kDriverControllerPort);
@@ -71,6 +72,6 @@ public class RobotContainer {
         .whileTrue(new HalfDriveSpeed());
     // When the A button is pressed, robot aligns to be directly facing an AprilTag
     new Trigger(m_driverController.a())
-        .onTrue(new VisionAlignment());
+        .onTrue(new VisionAlignment(m_robotVision, m_robotDrive));
   }
 }
