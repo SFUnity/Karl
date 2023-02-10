@@ -6,14 +6,21 @@ import frc.robot.Constants;
 
 public class VisionAlignment extends CommandBase {
 
-  public VisionAlignment() {}
+  private final VisionSubsystem m_vision;
+
+  public VisionAlignment(VisionSubsystem subsystem) {
+    m_vision = subsystem;
+  }
 
   @Override
   public void initialize() {
   }
 
   public void execute() {
-    var result1 = getLastResult();
+    var result = m_vision.getLastResult();
+    if (result.hasTargets()) {
+      turnpower = -turnController.Calculate(result.getBestTarget();)
+    }
   }
 
   @Override
