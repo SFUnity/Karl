@@ -50,7 +50,9 @@ public class RobotContainer {
             () -> -m_driverController.getLeftTriggerAxis()));
             
     // Set the default arm command
-    m_robotArm.setDefaultCommand(new DefaultArm(m_robotArm));
+    m_robotArm.setDefaultCommand(
+      new DefaultArm(
+        m_robotArm, m_driverController.x(), m_driverController.a()));
   }
   /**
    * Use this method to define your trigger->command mappings. Triggers can be
