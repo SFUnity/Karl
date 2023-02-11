@@ -14,9 +14,12 @@ public class DriveDistance extends CommandBase {
   private final double m_speed;
   private double kP = 0.5;
   private double kI = 0.5;
+  private double kD = 0.1;
   private static double error;
   private static double errorSum;
   private static double lastTimestamp;
+  private static double lastError;
+  private static double errorRate;
   private static double dt;
 
   /**
@@ -27,7 +30,7 @@ public class DriveDistance extends CommandBase {
    */
   public DriveDistance(double feet, DriveSubsystem drive) {
     m_setpoint = feet;
-    m_speed = (kP * error + kI * errorSum) / 12;
+    m_speed = (kP * error + kI * errorSum + kD * errorRate) / 12;
     m_drive = drive;
     addRequirements(m_drive);
   }
@@ -37,6 +40,7 @@ public class DriveDistance extends CommandBase {
     m_drive.resetEncoders();
     errorSum = 0;
     lastTimestamp = Timer.getFPGATimestamp();
+    lastError = 0;
     m_drive.tankDrive(m_speed, m_speed);
   }
 
@@ -48,10 +52,12 @@ public class DriveDistance extends CommandBase {
     if (Math.abs(error) < 1) {
       errorSum += error * dt;
     }
+    errorRate = (error - lastError);
 
     m_drive.tankDrive(m_speed, m_speed);
 
     lastTimestamp = Timer.getFPGATimestamp();
+    lastError = error;
   }
 
   // Sets speed to 0 when ended
