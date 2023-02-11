@@ -4,15 +4,20 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveSubsystem;
 
 public class DriveDistance extends CommandBase {
   private final DriveSubsystem m_drive;
-  private final double m_distance;
+  private final double m_setpoint;
   private final double m_speed;
-  private double kP = 1.0;
+  private double kP = 0.5;
+  private double kI = 0.5;
   private static double error;
+  private static double errorSum;
+  private static double lastTimestamp;
+  private static double dt;
 
   /**
    * Creates a new DriveDistance.
@@ -21,8 +26,8 @@ public class DriveDistance extends CommandBase {
    * @param drive  The drive subsystem on which this command will run
    */
   public DriveDistance(double inches, DriveSubsystem drive) {
-    m_distance = inches;
-    m_speed = kP * error;
+    m_setpoint = inches;
+    m_speed = kP * error + kI * errorSum;
     m_drive = drive;
     addRequirements(m_drive);
   }
@@ -30,13 +35,23 @@ public class DriveDistance extends CommandBase {
   @Override
   public void initialize() {
     m_drive.resetEncoders();
+    errorSum = 0;
+    lastTimestamp = Timer.getFPGATimestamp();
     m_drive.tankDrive(m_speed, m_speed);
   }
 
   @Override
   public void execute() {
-    error = m_distance - m_drive.getAverageEncoderDistance();
+    error = m_setpoint - m_drive.getAverageEncoderDistance();
+    dt = Timer.getFPGATimestamp() - lastTimestamp;
+
+    if (Math.abs(error) < 1) {
+      errorSum += error * dt;
+    }
+
     m_drive.tankDrive(m_speed, m_speed);
+
+    lastTimestamp = Timer.getFPGATimestamp();
   }
 
   // Sets speed to 0 when ended
@@ -47,6 +62,6 @@ public class DriveDistance extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return Math.abs(m_drive.getAverageEncoderDistance()) >= m_distance;
+    return Math.abs(m_drive.getAverageEncoderDistance()) >= m_setpoint;
   }
 }
