@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ArmSubsystem extends SubsystemBase {
   // The motors for the arm and the intake
-  CANSparkMax arm = new CANSparkMax(5, MotorType.kBrushless);
+  CANSparkMax arm = new CANSparkMax(7, MotorType.kBrushless);
   CANSparkMax intake = new CANSparkMax(6, MotorType.kBrushless);
 
   // Creates a new ArmSubsystem
