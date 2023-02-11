@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.VisionConstants;;
 
 public class VisionSubsystem extends SubsystemBase {
-  PhotonCamera camera = new PhotonCamera("KarlEyes");
+  PhotonCamera camera = new PhotonCamera("Arducam_OV9281_USB_Camera");
   public PIDController turnController = new PIDController(VisionConstants.LINEAR_P, 0, VisionConstants.LINEAR_D);
   public VisionSubsystem() {
   }
