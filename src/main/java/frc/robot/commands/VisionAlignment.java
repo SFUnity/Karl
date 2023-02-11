@@ -11,10 +11,11 @@ public class VisionAlignment extends CommandBase {
 
   private final VisionSubsystem m_vision;
   private final DriveSubsystem m_drive;
-
-  public VisionAlignment(VisionSubsystem subsystem, DriveSubsystem midsystem) {
+  private boolean done;
+  public VisionAlignment(VisionSubsystem subsystem, DriveSubsystem midsystem, boolean finish) {
     m_vision = subsystem;
     m_drive = midsystem;
+    done = finish;
   }
 
   @Override
@@ -31,14 +32,15 @@ public class VisionAlignment extends CommandBase {
         m_drive.tankDrive(.75, -.75);
       }
       else {
-        isFinished();
+        done = true;
       }
     }
   }
 
 
   public boolean isFinished() {
-    return true;
+    return done;
+
   }
   
   @Override
