@@ -22,12 +22,12 @@ public class DriveDistance extends CommandBase {
   /**
    * Creates a new DriveDistance.
    *
-   * @param inches The number of inches the robot will drive
+   * @param feet The number of feet the robot will drive
    * @param drive  The drive subsystem on which this command will run
    */
-  public DriveDistance(double inches, DriveSubsystem drive) {
-    m_setpoint = inches;
-    m_speed = kP * error + kI * errorSum;
+  public DriveDistance(double feet, DriveSubsystem drive) {
+    m_setpoint = feet;
+    m_speed = (kP * error + kI * errorSum) / 12;
     m_drive = drive;
     addRequirements(m_drive);
   }
