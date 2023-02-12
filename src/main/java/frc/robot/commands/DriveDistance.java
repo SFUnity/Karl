@@ -13,6 +13,7 @@ public class DriveDistance extends CommandBase {
   private final double m_speed;
   private final double kP;
   private static double error;
+  private static double heading;
   private final PIDController pidController;
 
   /**
@@ -34,12 +35,13 @@ public class DriveDistance extends CommandBase {
   public void initialize() {
     m_drive.resetEncoders();
     pidController.reset();
+    heading = m_drive.getHeading();
     m_drive.tankDrive(m_speed, m_speed);
   }
 
   @Override
   public void execute() {
-    error = -m_drive.getHeading();
+    error = heading - m_drive.getHeading();
     m_drive.tankDrive(m_speed + kP * error, m_speed + kP * error);
   }
 

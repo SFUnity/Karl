@@ -115,7 +115,7 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public double getHeading() {
-    return gyro.getRate();
+    return gyro.getAngle();
   }
 
   /**
