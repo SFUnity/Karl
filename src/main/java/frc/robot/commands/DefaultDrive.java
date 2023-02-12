@@ -14,8 +14,6 @@ public class DefaultDrive extends CommandBase {
   private final DoubleSupplier m_right;
   private final DoubleSupplier m_forward;
   private final DoubleSupplier m_backward;
-  private double leftFinal;
-  private double rightFinal;
 
   /**
    * Creates a new DefaultDrive.
@@ -32,8 +30,6 @@ public class DefaultDrive extends CommandBase {
     m_right = right;
     m_forward = forward;
     m_backward = backward;
-    leftFinal = m_left.getAsDouble() * m_forward.getAsDouble() * m_backward.getAsDouble() / 3.0;
-    rightFinal = m_right.getAsDouble() * m_forward.getAsDouble() * m_backward.getAsDouble() / 3.0;
     addRequirements(m_drive);
   }
 
@@ -44,7 +40,8 @@ public class DefaultDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_drive.tankDrive(leftFinal, rightFinal);
+    m_drive.tankDrive((m_left.getAsDouble() + m_forward.getAsDouble() + (m_backward.getAsDouble() * 5) / 3.0), 
+                      (m_right.getAsDouble() + m_forward.getAsDouble() + (m_backward.getAsDouble() * 5) / 3.0));
   }
   
   // Called once the command ends or is interrupted.

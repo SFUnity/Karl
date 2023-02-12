@@ -9,7 +9,7 @@ public class MaxDriveSpeed extends CommandBase {
 
   @Override
   public void initialize() {
-    Constants.DriveConstants.kSpeed = 1.0;
+    Constants.DriveConstants.kSpeed = 2.0;
   }
 
   @Override

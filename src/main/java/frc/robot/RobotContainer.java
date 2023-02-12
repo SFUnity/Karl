@@ -12,7 +12,10 @@ import frc.robot.subsystems.VisionSubsystem;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.MaxDriveSpeed;
+import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.commands.DefaultArm;
 import frc.robot.commands.VisionAlignment;
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -26,6 +29,7 @@ import frc.robot.commands.VisionAlignment;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
+  private final ArmSubsystem m_robotArm = new ArmSubsystem();
   private final VisionSubsystem m_robotVision = new VisionSubsystem();
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
@@ -45,10 +49,14 @@ public class RobotContainer {
             m_robotDrive,
             () -> -m_driverController.getLeftY(),
             () -> -m_driverController.getRightY(),
-            () -> m_driverController.getLeftTriggerAxis(),
-            () -> m_driverController.getRightTriggerAxis()));
+            () -> m_driverController.getRightTriggerAxis(),
+            () -> -m_driverController.getLeftTriggerAxis()));
+            
+    // Set the default arm command
+    m_robotArm.setDefaultCommand(
+      new DefaultArm(
+        m_robotArm, m_driverController.x(), m_driverController.a()));
   }
-
   /**
    * Use this method to define your trigger->command mappings. Triggers can be
    * created via the
@@ -65,13 +73,13 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // While holding the left shoulder button, drive at max speed
-    new Trigger(m_driverController.leftBumper())
+    new Trigger(m_driverController.rightBumper())
         .whileTrue(new MaxDriveSpeed());
     // While holding the right shoulder button, drive at half speed
-    new Trigger(m_driverController.rightBumper())
+    new Trigger(m_driverController.leftBumper())
         .whileTrue(new HalfDriveSpeed());
     // When the A button is pressed, robot aligns to be directly facing an AprilTag
-    new Trigger(m_driverController.a())
+    new Trigger(m_driverController.y())
         .onTrue(new VisionAlignment(m_robotVision, m_robotDrive, false));
   }
 }

@@ -35,6 +35,9 @@ public class VisionAlignment extends CommandBase {
         done = true;
       }
     }
+    else {
+      done = true;
+    }
   }
 
 
