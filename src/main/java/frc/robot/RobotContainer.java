@@ -79,7 +79,7 @@ public class RobotContainer {
     new Trigger(m_driverController.leftBumper())
         .whileTrue(new HalfDriveSpeed());
     // When the A button is pressed, robot aligns to be directly facing an AprilTag
-    new Trigger(m_driverController.a())
+    new Trigger(m_driverController.y())
         .onTrue(new VisionAlignment(m_robotVision, m_robotDrive, false));
   }
 }
