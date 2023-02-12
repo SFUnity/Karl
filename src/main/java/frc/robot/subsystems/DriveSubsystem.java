@@ -15,6 +15,8 @@ import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim;
 import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim.KitbotGearing;
 import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim.KitbotMotor;
 import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim.KitbotWheelSize;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.simulation.EncoderSim;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
@@ -81,6 +83,8 @@ public class DriveSubsystem extends SubsystemBase {
       m_leftEncoder.getDistance(), m_rightEncoder.getDistance(),
       new Pose2d(5.0, 13.5, new Rotation2d()));
   
+  private final Field2d m_field = new Field2d();
+  
   private Pose2d m_pose;
 
   /** Creates a new DriveSubsystem. */
@@ -93,6 +97,8 @@ public class DriveSubsystem extends SubsystemBase {
     // Sets the distance per pulse for the encoders
     m_leftEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
     m_rightEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
+
+    SmartDashboard.putData("Field", m_field);
   }
 
   /**
@@ -191,6 +197,8 @@ public class DriveSubsystem extends SubsystemBase {
     // subsystem in a separate thread or have changed the nominal timestep
     // of TimedRobot, this value needs to match it.
     m_driveSim.update(0.02);
+
+    m_field.setRobotPose(m_odometry.getPoseMeters());
 
     // Update all of our sensors.
     m_leftEncoderSim.setDistance(m_driveSim.getLeftPositionMeters());
