@@ -131,6 +131,10 @@ public class DriveSubsystem extends SubsystemBase {
     return gyro.getAngle();
   }
 
+  public Pose2d getPose() {
+    return m_pose;
+  }
+
   /**
    * Sets the max output of the drive. Useful for scaling the drive to drive more
    * slowly.
