@@ -198,7 +198,7 @@ public class DriveSubsystem extends SubsystemBase {
     // of TimedRobot, this value needs to match it.
     m_driveSim.update(0.02);
 
-    m_field.setRobotPose(m_odometry.getPoseMeters());
+    m_field.setRobotPose(m_pose);
 
     // Update all of our sensors.
     m_leftEncoderSim.setDistance(m_driveSim.getLeftPositionMeters());
