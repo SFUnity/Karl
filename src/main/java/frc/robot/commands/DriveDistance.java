@@ -11,6 +11,8 @@ import frc.robot.subsystems.DriveSubsystem;
 public class DriveDistance extends CommandBase {
   private final DriveSubsystem m_drive;
   private final double m_speed;
+  private final double kP;
+  private static double error;
   private final PIDController pidController;
 
   /**
@@ -24,6 +26,7 @@ public class DriveDistance extends CommandBase {
     pidController = new PIDController(0.5, 0.5, 0.1);
     pidController.setSetpoint(setpoint);
     m_speed = pidController.calculate(m_drive.getAverageEncoderDistance());
+    kP = 1;
     addRequirements(m_drive);
   }
 
@@ -36,7 +39,8 @@ public class DriveDistance extends CommandBase {
 
   @Override
   public void execute() {
-    m_drive.tankDrive(m_speed, m_speed);
+    error = -m_drive.getHeading();
+    m_drive.tankDrive(m_speed + kP * error, m_speed + kP * error);
   }
 
   // Sets speed to 0 when ended

@@ -114,6 +114,10 @@ public class DriveSubsystem extends SubsystemBase {
     return m_rightEncoder;
   }
 
+  public double getHeading() {
+    return gyro.getRate();
+  }
+
   /**
    * Sets the max output of the drive. Useful for scaling the drive to drive more
    * slowly.
