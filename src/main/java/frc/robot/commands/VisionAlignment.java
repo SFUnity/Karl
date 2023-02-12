@@ -17,7 +17,7 @@ public class VisionAlignment extends CommandBase {
     m_drive = midsystem;
     done = finish;
   }
-
+  
   @Override
   public void initialize() {
   }
@@ -25,10 +25,10 @@ public class VisionAlignment extends CommandBase {
   public void execute() {
     var result = m_vision.getLastResult();
     if (result.hasTargets()) {
-      if (result.getBestTarget().getYaw() > 3) {
+      if (result.getBestTarget().getYaw() < -3) {
         m_drive.tankDrive(-.75, .75);
       }
-      else if (result.getBestTarget().getYaw() < -3) {
+      else if (result.getBestTarget().getYaw() > 3) {
         m_drive.tankDrive(.75, -.75);
       }
       else {
