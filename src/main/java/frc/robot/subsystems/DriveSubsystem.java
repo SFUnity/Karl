@@ -12,6 +12,9 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.AnalogInput;
@@ -47,6 +50,16 @@ public class DriveSubsystem extends SubsystemBase {
 
   // Ultrasonic sensor
   private final AnalogInput ultrasonic = new AnalogInput(0);
+
+  // Creating my odometry object. Here,
+  // our starting pose is 5 meters along the long end of the field and in the
+  // center of the field along the short end, facing forward.
+  DifferentialDriveOdometry m_odometry = new DifferentialDriveOdometry(
+      Rotation2d.fromRadians(gyro.getAngle()),
+      m_leftEncoder.getDistance(), m_rightEncoder.getDistance(),
+      new Pose2d(5.0, 13.5, new Rotation2d()));
+  
+  private Pose2d m_pose;
 
   /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {
@@ -131,6 +144,13 @@ public class DriveSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    // Get the rotation of the robot from the gyro.
+    var gyroAngle = Rotation2d.fromRadians(gyro.getAngle());
+
+    // Update the pose
+    m_pose = m_odometry.update(gyroAngle,
+        m_leftEncoder.getDistance(),
+        m_rightEncoder.getDistance());
   }
 
   @Override
