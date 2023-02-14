@@ -16,6 +16,7 @@ public class VisionAlignment extends CommandBase {
     m_vision = subsystem;
     m_drive = midsystem;
     done = finish;
+    addRequirements(subsystem, midsystem);
   }
   
   @Override
