@@ -21,24 +21,23 @@ public class VisionAlignment extends CommandBase {
   
   @Override
   public void initialize() {
+    done=false;
   }
 
   public void execute() {
     var result = m_vision.getLastResult();
-    if (result.hasTargets()) {
-      if (result.getBestTarget().getYaw() < -3) {
-        m_drive.tankDrive(-.75, .75);
-      }
-      else if (result.getBestTarget().getYaw() > 3) {
-        m_drive.tankDrive(.75, -.75);
-      }
-      else {
-        done = true;
-      }
-    }
+    if (result.getBestTarget().getYaw() < -3) {
+      System.out.print("I can move!");
+      m_drive.tankDrive(-.5, .5);
+            }
+    else if (result.getBestTarget().getYaw() > 3) {
+      System.out.print("I can move!");
+      m_drive.tankDrive(.5, -.5);
+            }
     else {
+      System.out.print("All done!");
       done = true;
-    }
+            }
   }
 
 

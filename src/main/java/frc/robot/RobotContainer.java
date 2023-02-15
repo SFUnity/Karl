@@ -9,6 +9,8 @@ import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.HalfDriveSpeed;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
+import org.photonvision.targeting.PhotonPipelineResult;
+
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.MaxDriveSpeed;
@@ -79,7 +81,9 @@ public class RobotContainer {
     new Trigger(m_driverController.leftBumper())
         .whileTrue(new HalfDriveSpeed());
     // When the A button is pressed, robot aligns to be directly facing an AprilTag
+    PhotonPipelineResult result = m_robotVision.getLastResult();
+    System.out.print("I can see!");
     new Trigger(m_driverController.y())
-        .onTrue(new VisionAlignment(m_robotVision, m_robotDrive, false));
+        .whileTrue(new VisionAlignment(m_robotVision, m_robotDrive, false));
   }
 }
