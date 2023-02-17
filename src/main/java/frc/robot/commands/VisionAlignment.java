@@ -26,7 +26,9 @@ public class VisionAlignment extends CommandBase {
 
   public void execute() {
     var result = m_vision.getLastResult();
-    if (result.hasTargets()) {
+    boolean HasTarget = result.hasTargets();
+    if (HasTarget) {
+      HasTarget = true;
       if (result.getBestTarget().getYaw() < -3) {
         System.out.print("I can move!");
         m_drive.tankDrive(-.5, .5);
@@ -40,6 +42,10 @@ public class VisionAlignment extends CommandBase {
         done = true;
         }
       }
+    else {
+      HasTarget = false;
+      done = true;
+    }
   }
 
 
