@@ -7,6 +7,7 @@ package frc.robot.commands;
 import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import java.util.function.DoubleSupplier;
+import frc.robot.Constants.DriveConstants;;
 
 public class DefaultDrive extends CommandBase {
   private final DriveSubsystem m_drive;
@@ -14,6 +15,7 @@ public class DefaultDrive extends CommandBase {
   private final DoubleSupplier m_right;
   private final DoubleSupplier m_forward;
   private final DoubleSupplier m_backward;
+  private final double m_speed;
 
   /**
    * Creates a new DefaultDrive.
@@ -24,18 +26,21 @@ public class DefaultDrive extends CommandBase {
    * @param forward   The control input for the right motors
    * @param backward  The control input for the right motors
    */
-  public DefaultDrive(DriveSubsystem subsystem, DoubleSupplier left, DoubleSupplier right, DoubleSupplier forward, DoubleSupplier backward) {
+  public DefaultDrive(DriveSubsystem subsystem, DoubleSupplier left, DoubleSupplier right, DoubleSupplier forward, DoubleSupplier backward, double speed) {
     m_drive = subsystem;
     m_left = left;
     m_right = right;
     m_forward = forward;
     m_backward = backward;
+    m_speed = speed;
     addRequirements(m_drive);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    DriveConstants.kSpeed = m_speed;
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override

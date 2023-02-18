@@ -16,8 +16,6 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import frc.robot.commands.MaxDriveSpeed;
-import frc.robot.commands.HalfDriveSpeed;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -60,7 +58,8 @@ public class RobotContainer {
             () -> -m_driverController.getLeftY(),
             () -> -m_driverController.getRightY(),
             () -> m_driverController.getRightTriggerAxis(),
-            () -> -m_driverController.getLeftTriggerAxis()));
+            () -> -m_driverController.getLeftTriggerAxis(),
+            0.75));
 
     // Set the default arm command
     m_robotArm.setDefaultCommand(
@@ -91,10 +90,22 @@ public class RobotContainer {
   private void configureBindings() {
     // While holding the left shoulder button, drive at max speed
     new Trigger(m_driverController.rightBumper())
-        .whileTrue(new MaxDriveSpeed());
+        .whileTrue(new DefaultDrive(
+            m_robotDrive,
+            () -> -m_driverController.getLeftY(),
+            () -> -m_driverController.getRightY(),
+            () -> m_driverController.getRightTriggerAxis(),
+            () -> -m_driverController.getLeftTriggerAxis(),
+            1.0));
     // While holding the right shoulder button, drive at half speed
     new Trigger(m_driverController.leftBumper())
-        .whileTrue(new HalfDriveSpeed());
+        .whileTrue(new DefaultDrive(
+            m_robotDrive,
+            () -> -m_driverController.getLeftY(),
+            () -> -m_driverController.getRightY(),
+            () -> m_driverController.getRightTriggerAxis(),
+            () -> -m_driverController.getLeftTriggerAxis(),
+            0.5));
   }
 
   /**
