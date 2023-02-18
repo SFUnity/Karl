@@ -4,9 +4,8 @@
 
 package frc.robot;
 
-import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.DriveDistance;
+import frc.robot.commands.ComplexAuto;
 import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.DefaultArm;
 import frc.robot.subsystems.DriveSubsystem;
@@ -31,10 +30,8 @@ public class RobotContainer {
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
   private final ArmSubsystem m_robotArm = new ArmSubsystem();
 
-  // A simple auto routine that drives forward a specified distance, and then
-  // stops.
-  private final Command m_simpleAuto = new DriveDistance(
-      AutoConstants.kAutoDriveDistanceFeet, m_robotDrive);
+  // A complex auto routine 
+  private final Command m_complexAuto = new ComplexAuto(m_robotDrive, m_robotArm);
 
   // A chooser for autonomous commands
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -67,7 +64,7 @@ public class RobotContainer {
             m_robotArm, m_driverController.x(), m_driverController.a()));
 
     // Add commands to the autonomous command chooser
-    m_chooser.setDefaultOption("Simple Auto", m_simpleAuto);
+    m_chooser.setDefaultOption("Complex Auto", m_complexAuto);
 
     // Put the chooser on the dashboard
     Shuffleboard.getTab("Autonomous").add(m_chooser);
