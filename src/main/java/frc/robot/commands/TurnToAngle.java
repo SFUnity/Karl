@@ -5,21 +5,18 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.DriveSubsystem;
-
-import java.util.function.DoubleSupplier;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
 public class TurnToAngle extends CommandBase {
   private final DriveSubsystem m_drive;
-  private final DoubleSupplier m_setpoint;
+  private final double m_setpoint;
   private final double kP = 0.05;
 
   /**
    * @param subsystem The subsystem used by this command.
    */
-  public TurnToAngle(DriveSubsystem subsystem, DoubleSupplier setpoint) {
+  public TurnToAngle(DriveSubsystem subsystem, double setpoint) {
     m_drive = subsystem;
     m_setpoint = setpoint;
     addRequirements(m_drive);
@@ -31,7 +28,7 @@ public class TurnToAngle extends CommandBase {
   @Override
   public void execute() {
     // Find the heading error; setpoint is 90
-    double error = m_setpoint.getAsDouble() - m_drive.getHeading();
+    double error = m_setpoint - m_drive.getHeading();
 
     // Turns the robot to face the desired direction
     m_drive.tankDrive(kP * error, -kP * error);
