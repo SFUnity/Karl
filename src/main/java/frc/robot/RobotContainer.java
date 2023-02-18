@@ -88,7 +88,7 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    // While holding the left shoulder button, drive at max speed
+    // While holding the left shoulder button, drive at 100% speed
     new Trigger(m_driverController.rightBumper())
         .whileTrue(new DefaultDrive(
             m_robotDrive,
@@ -97,7 +97,7 @@ public class RobotContainer {
             () -> m_driverController.getRightTriggerAxis(),
             () -> -m_driverController.getLeftTriggerAxis(),
             1.0));
-    // While holding the right shoulder button, drive at half speed
+    // While holding the right shoulder button, drive at 50% speed
     new Trigger(m_driverController.leftBumper())
         .whileTrue(new DefaultDrive(
             m_robotDrive,
