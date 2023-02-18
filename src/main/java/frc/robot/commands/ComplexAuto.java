@@ -14,6 +14,7 @@ public class ComplexAuto extends SequentialCommandGroup {
      */
     public ComplexAuto(DriveSubsystem drive, ArmSubsystem arm) {
         // Place cone or cube
+        new PlacePiece(arm);
 
         // Drive forward the specified distance
         new DriveDistance(-10, drive);
