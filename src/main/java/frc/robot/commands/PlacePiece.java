@@ -29,6 +29,9 @@ public class PlacePiece extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+
+        m_arm.raiseArm();
+
         if (Constants.ArmConstants.lastGamePiece == Constants.ArmConstants.CONE) {
             m_arm.cubeInConeOut();
         } else if (Constants.ArmConstants.lastGamePiece == Constants.ArmConstants.CUBE) {
@@ -36,6 +39,8 @@ public class PlacePiece extends CommandBase {
         } else {
             m_arm.holdPiece();
         }
+
+        m_arm.lowerArm();
     }
 
     // Called once the command ends or is interrupted.
