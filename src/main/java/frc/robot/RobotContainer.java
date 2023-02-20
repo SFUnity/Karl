@@ -9,6 +9,7 @@ import frc.robot.Constants.ArmConstants;
 import frc.robot.commands.ComplexAuto;
 import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.POV;
+import frc.robot.commands.PlacePiece;
 import frc.robot.commands.DefaultArm;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
@@ -32,8 +33,14 @@ public class RobotContainer {
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
   private final ArmSubsystem m_robotArm = new ArmSubsystem();
 
+  // A complex auto routine
+  private final Command m_placePiece = new PlacePiece(m_robotArm);
+
+  // A complex auto routine
+  private final Command m_complexAuto = new ComplexAuto(m_robotDrive, m_robotArm);
+
   // A chooser for autonomous commands
-  SendableChooser<Integer> m_chooser = new SendableChooser<>();
+  SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
@@ -66,15 +73,13 @@ public class RobotContainer {
             ArmConstants.kPOV));
 
     // Add commands to the autonomous command chooser
-    m_chooser.setDefaultOption("Complex Auto", ArmConstants.CUBE);
+    m_chooser.setDefaultOption("Complex Auto", m_complexAuto);
 
     // Add commands to the autonomous command chooser
-    m_chooser.setDefaultOption("Complex Auto", ArmConstants.CONE);
+    m_chooser.addOption("PlacePiece", m_placePiece);
 
     // Put the chooser on the dashboard
-    Shuffleboard.getTab("Game Piece").add(m_chooser);
-
-    ArmConstants.lastGamePiece = m_chooser.getSelected();
+    Shuffleboard.getTab("Auto Options").add(m_chooser);
   }
 
   /**
@@ -122,6 +127,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return new ComplexAuto(m_robotDrive, m_robotArm);
+    return m_chooser.getSelected();
   }
 }
