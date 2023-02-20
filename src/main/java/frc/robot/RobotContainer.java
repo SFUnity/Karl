@@ -8,6 +8,7 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.ArmConstants;
 import frc.robot.commands.ComplexAuto;
 import frc.robot.commands.DefaultDrive;
+import frc.robot.commands.POV;
 import frc.robot.commands.DefaultArm;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
@@ -59,7 +60,10 @@ public class RobotContainer {
     // Set the default arm command
     m_robotArm.setDefaultCommand(
         new DefaultArm(
-            m_robotArm, m_driverController.x(), m_driverController.a()));
+            m_robotArm, 
+            m_driverController.x(), 
+            m_driverController.a(),
+            ArmConstants.kPOV));
 
     // Add commands to the autonomous command chooser
     m_chooser.setDefaultOption("Complex Auto", ArmConstants.CUBE);
@@ -106,6 +110,10 @@ public class RobotContainer {
             () -> m_driverController.getRightTriggerAxis(),
             () -> -m_driverController.getLeftTriggerAxis(),
             0.5));
+    
+    m_driverController.pov(0).whileTrue(new POV(0));
+    m_driverController.pov(180).whileTrue(new POV(180));
+    m_driverController.pov(-1).whileTrue(new POV(-1));
   }
 
   /**
