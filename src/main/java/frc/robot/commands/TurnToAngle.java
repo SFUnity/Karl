@@ -5,9 +5,6 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.DriveSubsystem;
-
-import java.util.function.DoubleSupplier;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
@@ -26,7 +23,9 @@ public class TurnToAngle extends CommandBase {
   }
 
   @Override
-  public void initialize() {}
+  public void initialize() {
+    m_drive.resetGyro();
+  }
 
   @Override
   public void execute() {
@@ -44,6 +43,6 @@ public class TurnToAngle extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return m_setpoint <= Math.abs(m_drive.getHeading());
   }
 }

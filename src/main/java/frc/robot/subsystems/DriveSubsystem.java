@@ -131,6 +131,10 @@ public class DriveSubsystem extends SubsystemBase {
     return gyro.getAngle();
   }
 
+  public void resetGyro() {
+    gyro.reset();
+  }
+
   public Pose2d getPose() {
     return m_pose;
   }
