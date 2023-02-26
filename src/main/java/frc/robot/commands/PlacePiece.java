@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.ArmSubsystem;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 
@@ -31,6 +32,7 @@ public class PlacePiece extends CommandBase {
     public void execute() {
 
         m_arm.raiseArm();
+        Timer.delay(1);
 
         if (Constants.ArmConstants.lastGamePiece == Constants.ArmConstants.CONE) {
             m_arm.cubeInConeOut();
@@ -41,6 +43,7 @@ public class PlacePiece extends CommandBase {
         }
 
         m_arm.lowerArm();
+        Timer.delay(1);
     }
 
     // Called once the command ends or is interrupted.

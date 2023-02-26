@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.ArmSubsystem;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -49,6 +50,7 @@ public class DefaultArm extends CommandBase {
                 m_arm.idleArm();
             }
         }
+        Timer.delay(1);
     }
 
     // Called once the command ends or is interrupted.
