@@ -63,8 +63,8 @@ public class ArmSubsystem extends SubsystemBase {
     m_armStats.add("intake motor temperature (C)", intake.getMotorTemperature());
   }
 
-  public void getArmPosition() {
-    m_armEncoder.getPosition();
+  public double getArmPosition() {
+    return m_armEncoder.getPosition();
   }
 
   public void raiseArm() {

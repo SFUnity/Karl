@@ -33,6 +33,7 @@ public class PlacePiece extends CommandBase {
 
         m_arm.raiseArm();
         Timer.delay(1);
+        System.out.println(m_arm.getArmPosition());
 
         if (Constants.ArmConstants.lastGamePiece == Constants.ArmConstants.CONE) {
             m_arm.cubeInConeOut();
@@ -44,6 +45,7 @@ public class PlacePiece extends CommandBase {
 
         m_arm.lowerArm();
         Timer.delay(1);
+        System.out.println(m_arm.getArmPosition());
     }
 
     // Called once the command ends or is interrupted.
