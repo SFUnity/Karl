@@ -25,5 +25,11 @@
       }
     },
   ],
-  "java.test.defaultConfig": "WPIlibUnitTests"
+  "java.test.defaultConfig": "WPIlibUnitTests",
+  "gitlens.hovers.annotations.changes": false,
+  "gitlens.hovers.annotations.details": false,
+  "gitlens.hovers.annotations.enabled": false,
+  "gitlens.hovers.autolinks.enabled": false,
+  "gitlens.hovers.autolinks.enhanced": false,
+  "gitlens.hovers.avatars": false
 }
