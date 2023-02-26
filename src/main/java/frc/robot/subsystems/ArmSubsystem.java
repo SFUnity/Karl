@@ -5,7 +5,9 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.SparkMaxAlternateEncoder.Type;
 import com.revrobotics.CANSparkMax.IdleMode;
 import frc.robot.Constants.ArmConstants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -13,8 +15,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ArmSubsystem extends SubsystemBase {
   // The motors for the arm and the intake
-  CANSparkMax arm = new CANSparkMax(5, MotorType.kBrushless);
-  CANSparkMax intake = new CANSparkMax(6, MotorType.kBrushless);
+  private final CANSparkMax arm = new CANSparkMax(5, MotorType.kBrushless);
+  private final CANSparkMax intake = new CANSparkMax(6, MotorType.kBrushless);
+
+  private final RelativeEncoder m_armEncoder = arm.getAlternateEncoder(Type.kQuadrature, 50);
 
   // Creates a new ArmSubsystem
   public ArmSubsystem() {
@@ -54,6 +58,10 @@ public class ArmSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("intake power (%)", percent);
     SmartDashboard.putNumber("intake motor current (amps)", intake.getOutputCurrent());
     SmartDashboard.putNumber("intake motor temperature (C)", intake.getMotorTemperature());
+  }
+
+  public void getArmPosition() {
+    m_armEncoder.getPosition();
   }
 
   public void raiseArm() {
