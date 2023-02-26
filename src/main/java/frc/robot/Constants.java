@@ -41,7 +41,7 @@ public final class Constants {
     public static final int ARM_CURRENT_LIMIT_A = 20;
 
     // Percent output to run the arm up/down at
-    public static final double ARM_OUTPUT_POWER = 0.4;
+    public static final double ARM_OUTPUT_POWER = 0.5;
 
     // How many amps the intake can use while picking up
     public static final int INTAKE_CURRENT_LIMIT_A = 25;
@@ -54,18 +54,6 @@ public final class Constants {
 
     // Percent output for holding
     public static final double INTAKE_HOLD_POWER = 0.07;
-
-    // Time to extend or retract arm in auto
-    public static final double ARM_EXTEND_TIME_S = 2.0;
-
-    // Time to throw game piece in auto
-    public static final double AUTO_THROW_TIME_S = 0.375;
-
-    // Time to drive back in auto
-    public static final double AUTO_DRIVE_TIME = 6.0;
-
-    // Speed to drive backwards in auto
-    public static final double AUTO_DRIVE_SPEED = -0.25;
 
     /**
      * Used to remember the last game piece picked up to apply some holding power.
