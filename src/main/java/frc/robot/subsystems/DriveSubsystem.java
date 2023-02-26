@@ -5,7 +5,6 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import com.revrobotics.CANSparkMax;
@@ -17,7 +16,6 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.AnalogInput;
 
 public class DriveSubsystem extends SubsystemBase {
   // The motors on the left side of the drive.
@@ -47,9 +45,6 @@ public class DriveSubsystem extends SubsystemBase {
 
   // ADIS16470 plugged into the MXP port
   private final ADIS16470_IMU gyro = new ADIS16470_IMU();
-
-  // Ultrasonic sensor
-  private final AnalogInput ultrasonic = new AnalogInput(0);
 
   // Creating my odometry object. Here,
   // our starting pose is 5 meters along the long end of the field and in the
@@ -91,13 +86,6 @@ public class DriveSubsystem extends SubsystemBase {
   public void resetEncoders() {
     m_leftEncoder.reset();
     m_rightEncoder.reset();
-  }
-
-  public double getDistance() {
-    double rawValue = ultrasonic.getValue();
-    double voltage_scale_factor = 5 / RobotController.getVoltage5V();
-    double currentDistanceInches = rawValue * voltage_scale_factor * 0.0492;
-    return currentDistanceInches;
   }
 
   /**
