@@ -11,7 +11,8 @@ import com.revrobotics.SparkMaxAlternateEncoder.Type;
 import com.revrobotics.CANSparkMax.IdleMode;
 import frc.robot.Constants.ArmConstants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 public class ArmSubsystem extends SubsystemBase {
   // The motors for the arm and the intake
@@ -19,6 +20,8 @@ public class ArmSubsystem extends SubsystemBase {
   private final CANSparkMax intake = new CANSparkMax(6, MotorType.kBrushless);
 
   private final RelativeEncoder m_armEncoder = arm.getAlternateEncoder(Type.kQuadrature, 50);
+
+  private static ShuffleboardTab m_armStats = Shuffleboard.getTab("Arm and Intake Stats");
 
   // Creates a new ArmSubsystem
   public ArmSubsystem() {
@@ -41,9 +44,9 @@ public class ArmSubsystem extends SubsystemBase {
    */
   public void setArmMotor(double percent) {
     arm.set(percent);
-    SmartDashboard.putNumber("arm power (%)", percent);
-    SmartDashboard.putNumber("arm motor current (amps)", arm.getOutputCurrent());
-    SmartDashboard.putNumber("arm motor temperature (C)", arm.getMotorTemperature());
+    m_armStats.add("arm power (%)", percent);
+    m_armStats.add("arm motor current (amps)", arm.getOutputCurrent());
+    m_armStats.add("arm motor temperature (C)", arm.getMotorTemperature());
   }
 
   /**
@@ -55,9 +58,9 @@ public class ArmSubsystem extends SubsystemBase {
   public void setIntakeMotor(double percent, int amps) {
     intake.set(percent);
     intake.setSmartCurrentLimit(amps);
-    SmartDashboard.putNumber("intake power (%)", percent);
-    SmartDashboard.putNumber("intake motor current (amps)", intake.getOutputCurrent());
-    SmartDashboard.putNumber("intake motor temperature (C)", intake.getMotorTemperature());
+    m_armStats.add("intake power (%)", percent);
+    m_armStats.add("intake motor current (amps)", intake.getOutputCurrent());
+    m_armStats.add("intake motor temperature (C)", intake.getMotorTemperature());
   }
 
   public void getArmPosition() {
