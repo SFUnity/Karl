@@ -55,6 +55,12 @@ public final class Constants {
     // Percent output for holding
     public static final double INTAKE_HOLD_POWER = 0.07;
 
+    // Time to extend or retract arm in auto
+    public static final double ARM_EXTEND_TIME_S = 2.0;
+
+    // Time to throw game piece in auto
+    public static final double AUTO_THROW_TIME_S = 0.375;
+
     /**
      * Used to remember the last game piece picked up to apply some holding power.
      */

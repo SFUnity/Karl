@@ -4,45 +4,38 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveSubsystem;
 
 public class DriveDistance extends CommandBase {
   private final DriveSubsystem m_drive;
-  private final double m_speed;
-  private final double kP;
-  private static double error;
+  private final double kP = 1;
   private static double heading;
-  private final PIDController pidController;
+  private final double m_distance;
 
   /**
    * Creates a new DriveDistance.
    *
-   * @param setpoint The number of feet the robot will drive
+   * @param distance The number of feet the robot will drive
    * @param drive    The drive subsystem on which this command will run
    */
-  public DriveDistance(double setpoint, DriveSubsystem drive) {
+  public DriveDistance(double distance, DriveSubsystem drive) {
     m_drive = drive;
-    pidController = new PIDController(0.5, 0.5, 0.1);
-    pidController.setSetpoint(setpoint);
-    m_speed = pidController.calculate(m_drive.getAverageEncoderDistance());
-    kP = 1;
+    m_distance = distance;
     addRequirements(m_drive);
   }
 
   @Override
   public void initialize() {
     m_drive.resetEncoders();
-    pidController.reset();
     heading = m_drive.getHeading();
-    m_drive.tankDrive(m_speed, m_speed);
+    m_drive.tankDrive(0, 0);
   }
 
   @Override
   public void execute() {
-    error = heading - m_drive.getHeading();
-    m_drive.tankDrive(m_speed + kP * error, m_speed + kP * error);
+    double error = heading - m_drive.getHeading();
+    m_drive.tankDrive(.5 + kP * error, .5 - kP * error);
   }
 
   // Sets speed to 0 when ended
@@ -53,6 +46,6 @@ public class DriveDistance extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return false;
+    return Math.abs(m_drive.getAverageEncoderDistance()) >= m_distance;
   }
 }

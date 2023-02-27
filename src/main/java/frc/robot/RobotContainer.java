@@ -40,6 +40,11 @@ public class RobotContainer {
   // A chooser for autonomous commands
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
+  // Auto piece chooser
+  private static final String kConeAuto = "cone";
+  private static final String kCubeAuto = "cube";
+  private final SendableChooser<String> m_chooser2 = new SendableChooser<>();
+
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
     new CommandXboxController(OperatorConstants.kDriverControllerPort);
@@ -78,6 +83,12 @@ public class RobotContainer {
 
     // Put the chooser on the dashboard
     Shuffleboard.getTab("Auto Options").add(m_chooser);
+
+    m_chooser2.setDefaultOption("Cone", kConeAuto);
+    m_chooser2.addOption("Cube", kCubeAuto);
+
+    // Put the chooser on the dashboard
+    Shuffleboard.getTab("Auto Options").add(m_chooser2);
   }
 
   /**
