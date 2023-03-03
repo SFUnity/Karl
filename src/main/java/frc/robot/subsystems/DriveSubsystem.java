@@ -68,7 +68,7 @@ public class DriveSubsystem extends SubsystemBase {
     m_rightEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
 
     // Places a compass indicator for the gyro heading on the dashboard
-    Shuffleboard.getTab("Heading").add(gyro);
+    // Shuffleboard.getTab("Heading").add(gyro);
   }
 
   /**
