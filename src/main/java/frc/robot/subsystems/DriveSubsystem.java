@@ -12,6 +12,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
@@ -47,7 +48,7 @@ public class DriveSubsystem extends SubsystemBase {
 
   // ADIS16470 plugged into the MXP port
   private final ADIS16470_IMU gyro = new ADIS16470_IMU();
-
+  private final PIDController turnPID = new PIDController(DriveConstants.kP, DriveConstants.kI,DriveConstants.kD);
   // Ultrasonic sensor
   private final AnalogInput ultrasonic = new AnalogInput(0);
 
@@ -72,6 +73,8 @@ public class DriveSubsystem extends SubsystemBase {
     m_leftEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
     m_rightEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
 
+    turnPID.enableContinuousInput(-180, 180);
+    turnPID.setTolerance(3,5);
     // Places a compass indicator for the gyro heading on the dashboard
     Shuffleboard.getTab("Heading").add(gyro);
   }
@@ -85,6 +88,10 @@ public class DriveSubsystem extends SubsystemBase {
   public void tankDrive(double left, double right) {
     m_drive.tankDrive(left * DriveConstants.kSpeed,
         right * DriveConstants.kSpeed);
+  }
+
+  public void arcadeDrive(double left, double right) {
+    m_drive.arcadeDrive(left, right);
   }
 
   /** Resets the drive encoders to currently read a position of 0. */
@@ -137,6 +144,10 @@ public class DriveSubsystem extends SubsystemBase {
 
   public Pose2d getPose() {
     return m_pose;
+  }
+
+  public double calculate(double measurement, double setpoint) {
+    return turnPID.calculate(measurement, setpoint);
   }
 
   /**

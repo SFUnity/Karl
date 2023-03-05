@@ -20,6 +20,10 @@ public final class Constants {
     public static final int kRightMotor1Port = 2;
     public static final int kRightMotor2Port = 3;
 
+    public static final double kP = 0.05;
+    public static final double kI = 0;
+    public static final double kD = 0;
+
     public static double KControllerSensitivity = 0.75;
 
     public static final int[] kLeftEncoderPorts = new int[] { 0, 1 };
