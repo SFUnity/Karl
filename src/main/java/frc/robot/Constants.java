@@ -27,6 +27,10 @@ public final class Constants {
     public static final boolean kLeftEncoderReversed = false;
     public static final boolean kRightEncoderReversed = true;
 
+    public static final double kP = 0.05;
+    public static final double kI = 0;
+    public static final double kD = 0;
+
     public static double kSpeed = 0.75;
 
     public static final int kEncoderCPR = 1024;
