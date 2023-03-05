@@ -6,12 +6,14 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import java.lang.Math;
 
 /** An example command that uses an example subsystem. */
 public class TurnToAngle extends CommandBase {
   private final DriveSubsystem m_drive;
   private final double m_setpoint;
   private final double kP = 0.05;
+  private final double kI = 0.05;
 
   /**
    * @param subsystem The subsystem used by this command.
@@ -33,7 +35,7 @@ public class TurnToAngle extends CommandBase {
     double error = m_setpoint - m_drive.getHeading();
 
     // Turns the robot to face the desired direction
-    m_drive.tankDrive(kP * error, -kP * error);
+    m_drive.arcadeDrive(0.0, m_drive.calculate(m_drive.getHeading(), m_setpoint));
   }
 
   // Called once the command ends or is interrupted.
