@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class TurnToAngle extends CommandBase {
   private final DriveSubsystem m_drive;
   private final double m_setpoint;
-  private final double kP = 0.05;
 
   /**
    * @param subsystem The subsystem used by this command.
@@ -28,7 +27,7 @@ public class TurnToAngle extends CommandBase {
   @Override
   public void execute() {
     // Find the heading error; setpoint is 90
-    double error = m_setpoint - m_drive.getHeading();
+    //double error = m_setpoint - m_drive.getHeading();
 
     // Turns the robot to face the desired direction
     m_drive.arcadeDrive(0, m_drive.calculate(m_drive.getHeading(), m_setpoint));
