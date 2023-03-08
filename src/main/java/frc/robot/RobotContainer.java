@@ -76,6 +76,9 @@ public class RobotContainer {
             m_driverController.a(),
             m_driverController.b()));
 
+
+  }
+  /* 
     // Add commands to the autonomous command chooser
     m_chooser.setDefaultOption("Complex Auto", m_complexAuto);
 
@@ -90,8 +93,9 @@ public class RobotContainer {
 
     // Put the chooser on the dashboard
     Shuffleboard.getTab("Auto Options").add(m_chooser2);
-  }
 
+
+  */
   /**
    * Use this method to define your trigger->command mappings. Triggers can be
    * created via the
@@ -126,8 +130,8 @@ public class RobotContainer {
             () -> -m_driverController.getLeftTriggerAxis(),
             0.5));
 
-    new Trigger(m_driverController.rightStick())
-      .onTrue(new TurnToAngle(m_robotDrive, 90));
+    //new Trigger(m_driverController.rightStick())
+      //.onTrue(new TurnToAngle(m_robotDrive, 90));
   }
     
   /**
