@@ -5,9 +5,8 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.ComplexAuto;
 import frc.robot.commands.DefaultDrive;
-import frc.robot.commands.PlacePiece;
+import frc.robot.commands.Auto;
 import frc.robot.commands.DefaultArm;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
@@ -30,15 +29,6 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
   private final ArmSubsystem m_robotArm = new ArmSubsystem();
-
-  // A complex auto routine
-  private final Command m_placePiece = new PlacePiece(m_robotArm);
-
-  // A complex auto routine
-  private final Command m_complexAuto = new ComplexAuto(m_robotDrive, m_robotArm);
-
-  // A chooser for autonomous commands
-  SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   // Auto piece chooser
   private static final String kConeAuto = "cone";
@@ -75,15 +65,7 @@ public class RobotContainer {
             m_driverController.a(),
             m_driverController.b()));
 
-    // Add commands to the autonomous command chooser
-    m_chooser.setDefaultOption("Complex Auto", m_complexAuto);
-
-    // Add commands to the autonomous command chooser
-    m_chooser.addOption("PlacePiece", m_placePiece);
-
-    // Put the chooser on the dashboard
-    Shuffleboard.getTab("Auto Options").add(m_chooser);
-
+    // Add commands to the autonomous piece chooser
     m_chooser2.setDefaultOption("Cone", kConeAuto);
     m_chooser2.addOption("Cube", kCubeAuto);
 
@@ -132,6 +114,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return m_chooser.getSelected();
+    return new Auto(m_robotArm, m_robotDrive);
   }
 }
