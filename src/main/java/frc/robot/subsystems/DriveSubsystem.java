@@ -115,7 +115,7 @@ public class DriveSubsystem extends SubsystemBase {
     return m_rightEncoder;
   }
 
-  public double getHeading() {
+  public double getAngle() {
     return gyro.getAngle();
   }
 
