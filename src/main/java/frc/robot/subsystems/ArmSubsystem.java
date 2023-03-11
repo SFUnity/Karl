@@ -44,9 +44,9 @@ public class ArmSubsystem extends SubsystemBase {
    */
   public void setArmMotor(double percent) {
     arm.set(percent);
-    // m_armStats.add("arm power (%)", percent);
-    // m_armStats.add("arm motor current (amps)", arm.getOutputCurrent());
-    // m_armStats.add("arm motor temperature (C)", arm.getMotorTemperature());
+    m_armStats.add("arm power (%)", percent);
+    m_armStats.add("arm motor current (amps)", arm.getOutputCurrent());
+    m_armStats.add("arm motor temperature (C)", arm.getMotorTemperature());
   }
 
   /**
@@ -58,9 +58,9 @@ public class ArmSubsystem extends SubsystemBase {
   public void setIntakeMotor(double percent, int amps) {
     intake.set(percent);
     intake.setSmartCurrentLimit(amps);
-    // m_armStats.add("intake power (%)", percent);
-    // m_armStats.add("intake motor current (amps)", intake.getOutputCurrent());
-    // m_armStats.add("intake motor temperature (C)", intake.getMotorTemperature());
+    m_armStats.add("intake power (%)", percent);
+    m_armStats.add("intake motor current (amps)", intake.getOutputCurrent());
+    m_armStats.add("intake motor temperature (C)", intake.getMotorTemperature());
   }
 
   public double getArmPosition() {

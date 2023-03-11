@@ -50,6 +50,7 @@ public class DefaultArm extends CommandBase {
                 m_arm.idleArm();
             }
         }
+        Timer.delay(1);
     }
 
     // Called once the command ends or is interrupted.
