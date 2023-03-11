@@ -30,7 +30,7 @@ public class TurnToAngle extends CommandBase {
     //double error = m_setpoint - m_drive.getHeading();
 
     // Turns the robot to face the desired direction
-    m_drive.arcadeDrive(0, m_drive.calculate(m_drive.getHeading(), m_setpoint)/5);
+    m_drive.arcadeDrive(0, m_drive.calculate(m_drive.getHeading(), m_setpoint)/10);
   }
 
   // Called once the command ends or is interrupted.
@@ -41,5 +41,6 @@ public class TurnToAngle extends CommandBase {
   @Override
   public boolean isFinished() {
     return false;
+   //return (m_setpoint - 3) < m_drive.getHeading() && m_drive.getHeading() < (m_setpoint + 3);
   }
 }

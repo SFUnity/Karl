@@ -54,8 +54,7 @@ public final class Constants {
     public static final int INTAKE_HOLD_CURRENT_LIMIT_A = 5;
 
     // Percent output for intaking
-    public static final double INTAKE_OUTPUT_POWER = .3;
-
+    public static final double INTAKE_OUTPUT_POWER = .45;
     // Percent output for holding
     public static final double INTAKE_HOLD_POWER = 0.07;
 
