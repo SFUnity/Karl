@@ -39,10 +39,11 @@ public class DefaultArm extends CommandBase {
     public void execute() {
         if (m_b.getAsBoolean()) {
             m_arm.coneInCubeOut();
-        } else if (m_y.getAsBoolean()) {
-            m_arm.raiseArm();
         } else if (m_x.getAsBoolean()) {
             m_arm.cubeInConeOut();
+        } else if (m_y.getAsBoolean()) {
+            m_arm.raiseArm();
+            m_arm.holdPiece();
         } else if (m_a.getAsBoolean()) {
             m_arm.lowerArm();
         } else {
