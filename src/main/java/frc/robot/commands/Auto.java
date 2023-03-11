@@ -44,12 +44,8 @@ public class Auto extends CommandBase {
             m_drive.tankDrive(0, 0);
         } else if (timeElapsed < ArmConstants.ARM_EXTEND_TIME_S + ArmConstants.AUTO_THROW_TIME_S) {
             m_arm.idleArm();
+            m_arm.cubeInConeOut();
             m_drive.tankDrive(0, 0);
-            if (ArmConstants.lastGamePiece == ArmConstants.CUBE) {
-                m_arm.coneInCubeOut();
-            } else if (ArmConstants.lastGamePiece == ArmConstants.CONE) {
-                m_arm.cubeInConeOut();
-            }
         } else if (timeElapsed < ArmConstants.ARM_EXTEND_TIME_S + ArmConstants.AUTO_THROW_TIME_S + ArmConstants.ARM_EXTEND_TIME_S) {
             m_arm.lowerArm();
             m_arm.holdPiece();
