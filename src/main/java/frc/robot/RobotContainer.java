@@ -115,6 +115,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
+    System.out.print("getAuto ran");
     return new Auto(m_robotArm, m_robotDrive);
   }
 }

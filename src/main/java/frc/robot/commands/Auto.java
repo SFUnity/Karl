@@ -30,6 +30,7 @@ public class Auto extends CommandBase {
     @Override
     public void initialize() {
         autoStartTime = Timer.getFPGATimestamp();
+        System.out.print("autoStartTime" + autoStartTime);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -37,6 +38,7 @@ public class Auto extends CommandBase {
     public void execute() {
         
         double timeElapsed = Timer.getFPGATimestamp() - autoStartTime;
+        System.out.print(timeElapsed);
 
         if (timeElapsed < ArmConstants.ARM_EXTEND_TIME_S) {
             m_arm.raiseArm();
