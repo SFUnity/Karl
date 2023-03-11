@@ -5,23 +5,15 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import com.revrobotics.SparkMaxAlternateEncoder.Type;
 import com.revrobotics.CANSparkMax.IdleMode;
 import frc.robot.Constants.ArmConstants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 public class ArmSubsystem extends SubsystemBase {
   // The motors for the arm and the intake
   private final CANSparkMax arm = new CANSparkMax(5, MotorType.kBrushless);
   private final CANSparkMax intake = new CANSparkMax(6, MotorType.kBrushless);
-
-  private final RelativeEncoder m_armEncoder = arm.getAlternateEncoder(Type.kQuadrature, 50);
-
-  private static ShuffleboardTab m_armStats = Shuffleboard.getTab("Arm and Intake Stats");
 
   // Creates a new ArmSubsystem
   public ArmSubsystem() {
@@ -44,9 +36,6 @@ public class ArmSubsystem extends SubsystemBase {
    */
   public void setArmMotor(double percent) {
     arm.set(percent);
-    m_armStats.add("arm power (%)", percent);
-    m_armStats.add("arm motor current (amps)", arm.getOutputCurrent());
-    m_armStats.add("arm motor temperature (C)", arm.getMotorTemperature());
   }
 
   /**
@@ -57,14 +46,6 @@ public class ArmSubsystem extends SubsystemBase {
    */
   public void setIntakeMotor(double percent, int amps) {
     intake.set(percent);
-    intake.setSmartCurrentLimit(amps);
-    m_armStats.add("intake power (%)", percent);
-    m_armStats.add("intake motor current (amps)", intake.getOutputCurrent());
-    m_armStats.add("intake motor temperature (C)", intake.getMotorTemperature());
-  }
-
-  public double getArmPosition() {
-    return m_armEncoder.getPosition();
   }
 
   public void raiseArm() {
