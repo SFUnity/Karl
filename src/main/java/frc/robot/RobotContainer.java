@@ -63,7 +63,8 @@ public class RobotContainer {
             m_robotArm, 
             m_driverController.x(), 
             m_driverController.a(),
-            m_driverController.b()));
+            m_driverController.b(),
+            m_driverController.y()));
 
     // Add commands to the autonomous piece chooser
     m_chooser2.setDefaultOption("Cone", kConeAuto);
