@@ -24,8 +24,8 @@ public class DefaultArm extends CommandBase {
         m_arm = subsystem;
         m_x = x;
         m_a = a;
-        m_b = y;
-        m_y = b;
+        m_b = b;
+        m_y = y;
         addRequirements(m_arm);
     }
 
@@ -38,13 +38,13 @@ public class DefaultArm extends CommandBase {
     @Override
     public void execute() {
         if (m_b.getAsBoolean()) {
-            m_arm.lowerArm();
+            m_arm.coneInCubeOut();
         } else if (m_y.getAsBoolean()) {
             m_arm.raiseArm();
         } else if (m_x.getAsBoolean()) {
             m_arm.cubeInConeOut();
         } else if (m_a.getAsBoolean()) {
-            m_arm.coneInCubeOut();
+            m_arm.lowerArm();
         } else {
             m_arm.holdPiece();
             m_arm.idleArm();
