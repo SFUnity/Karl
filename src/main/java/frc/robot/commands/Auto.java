@@ -24,14 +24,13 @@ public class Auto extends CommandBase {
     public Auto(ArmSubsystem subsystem, DriveSubsystem subsystem2) {
         m_arm = subsystem;
         m_drive = subsystem2;
-        addRequirements(m_arm);
+        addRequirements(m_arm, m_drive);
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
         autoStartTime = Timer.getFPGATimestamp();
-        System.out.print("autoStartTime" + autoStartTime);
 
         DriveConstants.kSpeed = 1.0;
     }
@@ -41,7 +40,6 @@ public class Auto extends CommandBase {
     public void execute() {
         
         double timeElapsed = Timer.getFPGATimestamp() - autoStartTime;
-        System.out.print(timeElapsed);
 
         if (timeElapsed < ArmConstants.ARM_EXTEND_TIME_S) {
             m_arm.raiseArm();
@@ -55,10 +53,10 @@ public class Auto extends CommandBase {
             m_arm.lowerArm();
             m_arm.holdPiece();
             m_drive.tankDrive(0, 0);
-        } else if (timeElapsed < ArmConstants.ARM_EXTEND_TIME_S + ArmConstants.AUTO_THROW_TIME_S + ArmConstants.ARM_EXTEND_TIME_S + ArmConstants.AUTO_DRIVE_TIME) {
+        } else if (timeElapsed < ArmConstants.ARM_EXTEND_TIME_S + ArmConstants.AUTO_THROW_TIME_S + ArmConstants.ARM_EXTEND_TIME_S + ArmConstants.AUTO_DRIVE_TIME_BACK) {
             m_arm.idleArm();
             m_arm.holdPiece();
-            m_drive.tankDrive(-1.0, -1.0);
+            m_drive.tankDrive(ArmConstants.AUTO_DRIVE_SPEED, ArmConstants.AUTO_DRIVE_SPEED);
         } else {
             m_arm.idleArm();
             m_arm.holdPiece();

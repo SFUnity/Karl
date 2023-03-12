@@ -59,13 +59,22 @@ public final class Constants {
     public static final double ARM_EXTEND_TIME_S = 2.0;
 
     // Time to throw game piece in auto
-    public static final double AUTO_THROW_TIME_S = 1.0;
+    public static final double AUTO_THROW_TIME_S = 0.5;
 
     // Time to drive back in auto
-    public static final double AUTO_DRIVE_TIME = 6.0;
+    public static final double AUTO_DRIVE_TIME_BACK = 4.0;
+
+    // Time to drive forward in auto
+    public static final double AUTO_DRIVE_TIME_FORWARD_1 = 2.0;
+
+    // Time to drive forward in auto
+    public static final double AUTO_DRIVE_TIME_FORWARD_2 = 2.0;
+
+    // Time to turn in auto
+    public static final double AUTO_DRIVE_TIME_TURN = 0.5;
 
     // Speed to drive backwards in auto
-    public static final double AUTO_DRIVE_SPEED = -0.5;
+    public static final double AUTO_DRIVE_SPEED = -0.85;
 
     /**
      * Used to remember the last game piece picked up to apply some holding power.
