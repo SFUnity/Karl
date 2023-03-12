@@ -45,8 +45,8 @@ public class DefaultDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_drive.tankDrive((m_left.getAsDouble() + m_forward.getAsDouble() + (m_backward.getAsDouble() * 5) / 3.0),
-        (m_right.getAsDouble() + m_forward.getAsDouble() + (m_backward.getAsDouble() * 5) / 3.0));
+    m_drive.tankDrive((m_left.getAsDouble() + m_forward.getAsDouble() + (m_backward.getAsDouble() * 3) / 3.0),
+        (m_right.getAsDouble() + m_forward.getAsDouble() + (m_backward.getAsDouble() * 3) / 3.0));
   }
   
   // Called once the command ends or is interrupted.

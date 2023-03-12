@@ -8,6 +8,7 @@ import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.ArmConstants;
 
 public class Auto extends CommandBase {
@@ -20,9 +21,9 @@ public class Auto extends CommandBase {
      *
      * @param subsystem The drive subsystem this command wil run on.
      */
-    public Auto(ArmSubsystem subsystem, DriveSubsystem drive) {
+    public Auto(ArmSubsystem subsystem, DriveSubsystem subsystem2) {
         m_arm = subsystem;
-        m_drive = drive;
+        m_drive = subsystem2;
         addRequirements(m_arm);
     }
 
@@ -31,6 +32,8 @@ public class Auto extends CommandBase {
     public void initialize() {
         autoStartTime = Timer.getFPGATimestamp();
         System.out.print("autoStartTime" + autoStartTime);
+
+        DriveConstants.kSpeed = 1.0;
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -55,7 +58,7 @@ public class Auto extends CommandBase {
         } else if (timeElapsed < ArmConstants.ARM_EXTEND_TIME_S + ArmConstants.AUTO_THROW_TIME_S + ArmConstants.ARM_EXTEND_TIME_S + ArmConstants.AUTO_DRIVE_TIME) {
             m_arm.idleArm();
             m_arm.holdPiece();
-            m_drive.tankDrive(ArmConstants.AUTO_DRIVE_SPEED, ArmConstants.AUTO_DRIVE_SPEED);
+            m_drive.tankDrive(-1.0, -1.0);
         } else {
             m_arm.idleArm();
             m_arm.holdPiece();
@@ -71,6 +74,6 @@ public class Auto extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return true;
+        return false;
     }
 }

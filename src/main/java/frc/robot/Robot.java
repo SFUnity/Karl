@@ -62,8 +62,6 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
-
-    Constants.DriveConstants.kSpeed = 1.0;
   }
 
   /** This function is called periodically during autonomous. */
