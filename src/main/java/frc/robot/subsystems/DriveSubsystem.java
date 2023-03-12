@@ -98,6 +98,10 @@ public class DriveSubsystem extends SubsystemBase {
     m_rightEncoder.reset();
   }
 
+  public void resetGyro() {
+    gyro.reset();
+  }
+
   /**
    * Gets the average distance of the TWO encoders.
    *

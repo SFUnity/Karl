@@ -22,7 +22,9 @@ public class TurnToAngle extends CommandBase {
   }
 
   @Override
-  public void initialize() {}
+  public void initialize() {
+    m_drive.resetGyro();
+  }
 
   @Override
   public void execute() {
