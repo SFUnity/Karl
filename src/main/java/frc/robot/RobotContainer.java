@@ -130,9 +130,14 @@ public class RobotContainer {
             () -> -m_driverController.getLeftTriggerAxis(),
             0.5));
 
-  //  new  Trigger(m_driverController.rightStick())
-    //  .onTrue(new TurnToAngle(m_robotDrive, 90));
+    new Trigger(m_driverController.rightStick())
+      .onTrue(new TurnToAngle(m_robotDrive, 90));
+
+    new Trigger(m_driverController.leftStick())
+        .onTrue(new TurnToAngle(m_robotDrive, 180));
   }
+
+
     
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
