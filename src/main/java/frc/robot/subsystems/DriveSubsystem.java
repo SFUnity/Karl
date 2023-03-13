@@ -78,10 +78,22 @@ public class DriveSubsystem extends SubsystemBase {
         right * DriveConstants.kSpeed);
   }
 
+  public void arcadeDrive(double left, double right) {
+    m_drive.arcadeDrive(left, right);
+  }
+
   /** Resets the drive encoders to currently read a position of 0. */
   public void resetEncoders() {
     m_leftEncoder.reset();
     m_rightEncoder.reset();
+  }
+
+  public void resetGyro() {
+    gyro.reset();
+  }
+
+  public double getHeading() {
+    return gyro.getAngle();
   }
 
   /**

@@ -8,6 +8,7 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.Auto;
 import frc.robot.commands.DefaultArm;
+import frc.robot.commands.TurnToAngle;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -107,6 +108,15 @@ public class RobotContainer {
             () -> m_driverController.getRightTriggerAxis(),
             () -> -m_driverController.getLeftTriggerAxis(),
             0.5));
+
+    new Trigger(m_driverController.pov(90)).whileTrue(new TurnToAngle(
+      m_robotDrive, 90));
+
+    new Trigger(m_driverController.pov(180)).whileTrue(new TurnToAngle(
+        m_robotDrive, 180));
+
+      new Trigger(m_driverController.pov(270)).whileTrue(new TurnToAngle(
+        m_robotDrive, 270));
   }
 
   /**
