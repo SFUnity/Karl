@@ -6,7 +6,7 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.DefaultDrive;
-import frc.robot.commands.Auto;
+import frc.robot.commands.RealAuto;
 import frc.robot.commands.DefaultArm;
 import frc.robot.commands.TurnToAngle;
 import frc.robot.subsystems.DriveSubsystem;
@@ -126,6 +126,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     System.out.print("getAuto ran");
-    return new Auto(m_robotArm, m_robotDrive);
+    return new RealAuto(m_robotDrive, m_robotArm);
   }
 }

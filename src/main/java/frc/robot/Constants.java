@@ -62,13 +62,7 @@ public final class Constants {
     public static final double AUTO_THROW_TIME_S = 0.5;
 
     // Time to drive back in auto
-    public static final double AUTO_DRIVE_TIME_BACK = 4.0;
-
-    // Time to drive forward in auto
-    public static final double AUTO_DRIVE_TIME_FORWARD_1 = 2.0;
-
-    // Time to drive forward in auto
-    public static final double AUTO_DRIVE_TIME_FORWARD_2 = 2.0;
+    public static final double AUTO_DRIVE_TIME = 4.0;
 
     // Time to turn in auto
     public static final double AUTO_DRIVE_TIME_TURN = 0.5;

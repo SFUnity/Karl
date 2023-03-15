@@ -15,6 +15,7 @@ public class Auto extends CommandBase {
     private final ArmSubsystem m_arm;
     private final DriveSubsystem m_drive;
     private double autoStartTime;
+    private static double timeElapsed;
 
     /**
      * Creates a new DefaultDrive.
@@ -39,7 +40,7 @@ public class Auto extends CommandBase {
     @Override
     public void execute() {
         
-        double timeElapsed = Timer.getFPGATimestamp() - autoStartTime;
+        timeElapsed = Timer.getFPGATimestamp() - autoStartTime;
 
         if (timeElapsed < ArmConstants.ARM_EXTEND_TIME_S) {
             m_arm.raiseArm();
@@ -53,7 +54,7 @@ public class Auto extends CommandBase {
             m_arm.lowerArm();
             m_arm.holdPiece();
             m_drive.tankDrive(0, 0);
-        } else if (timeElapsed < ArmConstants.ARM_EXTEND_TIME_S + ArmConstants.AUTO_THROW_TIME_S + ArmConstants.ARM_EXTEND_TIME_S + ArmConstants.AUTO_DRIVE_TIME_BACK) {
+        } else if (timeElapsed < ArmConstants.ARM_EXTEND_TIME_S + ArmConstants.AUTO_THROW_TIME_S + ArmConstants.ARM_EXTEND_TIME_S + ArmConstants.AUTO_DRIVE_TIME) {
             m_arm.idleArm();
             m_arm.holdPiece();
             m_drive.tankDrive(ArmConstants.AUTO_DRIVE_SPEED, ArmConstants.AUTO_DRIVE_SPEED);
@@ -72,6 +73,7 @@ public class Auto extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return false;
+        return timeElapsed == ArmConstants.ARM_EXTEND_TIME_S + ArmConstants.AUTO_THROW_TIME_S
+                + ArmConstants.ARM_EXTEND_TIME_S + ArmConstants.AUTO_DRIVE_TIME;
     }
 }
