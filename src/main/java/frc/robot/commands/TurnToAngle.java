@@ -23,9 +23,6 @@ public class TurnToAngle extends CommandBase {
   public TurnToAngle(DriveSubsystem subsystem, double setpoint) {
     m_drive = subsystem;
     m_setpoint = setpoint;
-    if (setpoint == 270) {
-      setpoint = -90;
-    }
     addRequirements(m_drive);
   }
 

@@ -116,7 +116,7 @@ public class RobotContainer {
         m_robotDrive, 180));
 
       new Trigger(m_driverController.pov(270)).whileTrue(new TurnToAngle(
-        m_robotDrive, 270));
+        m_robotDrive, -90));
   }
 
   /**
