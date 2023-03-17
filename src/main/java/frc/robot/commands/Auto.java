@@ -14,6 +14,7 @@ import frc.robot.Constants.ArmConstants;
 public class Auto extends CommandBase {
     private final ArmSubsystem m_arm;
     private final DriveSubsystem m_drive;
+    private final double m_select;
     private double autoStartTime;
     private static double timeElapsed;
 
@@ -22,9 +23,10 @@ public class Auto extends CommandBase {
      *
      * @param subsystem The drive subsystem this command wil run on.
      */
-    public Auto(ArmSubsystem subsystem, DriveSubsystem subsystem2) {
+    public Auto(ArmSubsystem subsystem, DriveSubsystem subsystem2, double select) {
         m_arm = subsystem;
         m_drive = subsystem2;
+        m_select = select;
         addRequirements(m_arm, m_drive);
     }
 
@@ -34,6 +36,15 @@ public class Auto extends CommandBase {
         autoStartTime = Timer.getFPGATimestamp();
 
         DriveConstants.kSpeed = 1.0;
+
+        if (m_select == 1) {
+            ArmConstants.AUTO_DRIVE_SPEED = -0.5;
+        } else if (m_select == 2) {
+            ArmConstants.AUTO_DRIVE_SPEED = -0.5;
+            ArmConstants.AUTO_DRIVE_TIME = 5.5;
+        } else {
+            ArmConstants.AUTO_DRIVE_TIME = 0.0;
+        }
     }
 
     // Called every time the scheduler runs while the command is scheduled.

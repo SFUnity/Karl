@@ -62,13 +62,10 @@ public final class Constants {
     public static final double AUTO_THROW_TIME_S = 0.5;
 
     // Time to drive back in auto
-    public static final double AUTO_DRIVE_TIME = 4.0;
-
-    // Time to turn in auto
-    public static final double AUTO_DRIVE_TIME_TURN = 0.5;
+    public static double AUTO_DRIVE_TIME = 4.0;
 
     // Speed to drive backwards in auto
-    public static final double AUTO_DRIVE_SPEED = -0.5;
+    public static double AUTO_DRIVE_SPEED = -0.5;
 
     /**
      * Used to remember the last game piece picked up to apply some holding power.

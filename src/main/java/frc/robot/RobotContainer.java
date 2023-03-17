@@ -32,9 +32,10 @@ public class RobotContainer {
   private final ArmSubsystem m_robotArm = new ArmSubsystem();
 
   // Auto piece chooser
-  private static final String kConeAuto = "cone";
-  private static final String kCubeAuto = "cube";
-  private final SendableChooser<String> m_chooser2 = new SendableChooser<>();
+  private final Command kNormalAuto = new Auto(m_robotArm, m_robotDrive, 1);
+  private final Command kMiddleAuto = new Auto(m_robotArm, m_robotDrive, 2);
+  private final Command kBumpAuto = new Auto(m_robotArm, m_robotDrive, 0);
+  private final SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
@@ -68,11 +69,12 @@ public class RobotContainer {
             m_driverController.y()));
 
     // Add commands to the autonomous piece chooser
-    m_chooser2.setDefaultOption("Cone", kConeAuto);
-    m_chooser2.addOption("Cube", kCubeAuto);
+    m_chooser.setDefaultOption("normal", kNormalAuto);
+    m_chooser.addOption("middle", kMiddleAuto);
+    m_chooser.addOption("bump", kBumpAuto);
 
     // Put the chooser on the dashboard
-    Shuffleboard.getTab("Auto Options").add(m_chooser2);
+    Shuffleboard.getTab("Auto Options").add(m_chooser);
   }
 
   /**
@@ -126,6 +128,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     System.out.print("getAuto ran");
-    return new Auto(m_robotArm, m_robotDrive);
+    return m_chooser.getSelected();
   }
 }
