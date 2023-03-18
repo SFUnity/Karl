@@ -8,7 +8,7 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.Auto;
 import frc.robot.commands.DefaultArm;
-import frc.robot.commands.TurnToAngle;
+import frc.robot.commands.Turn;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -33,8 +33,8 @@ public class RobotContainer {
 
   // Auto piece chooser
   private final Command kNormalAuto = new Auto(m_robotArm, m_robotDrive, 1);
-  private final Command kMiddleAuto = new Auto(m_robotArm, m_robotDrive, 2);
-  private final Command kBumpAuto = new Auto(m_robotArm, m_robotDrive, 0);
+  private final Command kMiddleAuto = new Auto(m_robotArm, m_robotDrive, 0);
+  private final Command kBumpAuto = new Auto(m_robotArm, m_robotDrive, 2);
   private final SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -92,7 +92,7 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    // While holding the left shoulder button, drive at 100% speed
+    // While holding the right shoulder button, drive at 115% speed
     new Trigger(m_driverController.rightBumper())
         .whileTrue(new DefaultDrive(
             m_robotDrive,
@@ -100,8 +100,8 @@ public class RobotContainer {
             () -> -m_driverController.getRightY(),
             () -> m_driverController.getRightTriggerAxis(),
             () -> -m_driverController.getLeftTriggerAxis(),
-            1.0));
-    // While holding the right shoulder button, drive at 50% speed
+            1.15));
+    // While holding the left shoulder button, drive at 50% speed
     new Trigger(m_driverController.leftBumper())
         .whileTrue(new DefaultDrive(
             m_robotDrive,
@@ -111,14 +111,11 @@ public class RobotContainer {
             () -> -m_driverController.getLeftTriggerAxis(),
             0.5));
 
-    new Trigger(m_driverController.pov(90)).whileTrue(new TurnToAngle(
+    new Trigger(m_driverController.pov(90)).whileTrue(new Turn(
       m_robotDrive, 90));
 
-    new Trigger(m_driverController.pov(180)).whileTrue(new TurnToAngle(
-        m_robotDrive, 180));
-
-      new Trigger(m_driverController.pov(270)).whileTrue(new TurnToAngle(
-        m_robotDrive, -90));
+      new Trigger(m_driverController.pov(270)).whileTrue(new Turn(
+        m_robotDrive, 270));
   }
 
   /**

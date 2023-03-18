@@ -78,8 +78,8 @@ public class DriveSubsystem extends SubsystemBase {
         right * DriveConstants.kSpeed);
   }
 
-  public void arcadeDrive(double left, double right) {
-    m_drive.arcadeDrive(left, right);
+  public void arcadeDrive(double speed, double rotation) {
+    m_drive.arcadeDrive(speed, rotation);
   }
 
   /** Resets the drive encoders to currently read a position of 0. */

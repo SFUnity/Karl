@@ -6,37 +6,32 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.math.controller.PIDController;
 
 /** An example command that uses an example subsystem. */
-public class TurnToAngle extends CommandBase {
+public class Turn extends CommandBase {
   private final DriveSubsystem m_drive;
   private final double m_setpoint;
-  private final double kP = 0.03;
-  private final double kD = 0.0055;
-  private final double kI = 0.00;
-  private final PIDController turnPID = new PIDController(kP, kI, kD);
 
   /**
    * @param subsystem The subsystem used by this command.
    */
-  public TurnToAngle(DriveSubsystem subsystem, double setpoint) {
+  public Turn(DriveSubsystem subsystem, double setpoint) {
     m_drive = subsystem;
     m_setpoint = setpoint;
     addRequirements(m_drive);
   }
 
   @Override
-  public void initialize() {
-    turnPID.enableContinuousInput(-180, 180);
-    turnPID.setTolerance(3, 5);
-    m_drive.resetGyro();
-  }
+  public void initialize() {}
 
   @Override
   public void execute() {
     // Turns the robot to face the desired direction
-    m_drive.arcadeDrive(0, turnPID.calculate(m_drive.getHeading(), m_setpoint));
+    if (m_setpoint == 90) {
+      m_drive.arcadeDrive(0, -1.0);
+    } else if (m_setpoint == 270) {
+      m_drive.arcadeDrive(0, 1.0);
+    }
   }
 
   // Called once the command ends or is interrupted.
@@ -46,6 +41,6 @@ public class TurnToAngle extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (m_setpoint - 5) < m_drive.getHeading() && m_drive.getHeading() < (m_setpoint + 5);
+    return false;
   }
 }
