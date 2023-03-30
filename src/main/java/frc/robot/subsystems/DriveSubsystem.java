@@ -13,7 +13,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
 
 public class DriveSubsystem extends SubsystemBase {
@@ -52,7 +56,7 @@ public class DriveSubsystem extends SubsystemBase {
       Rotation2d.fromRadians(gyro.getAngle()),
       m_leftEncoder.getDistance(), m_rightEncoder.getDistance(),
       new Pose2d(5.0, 13.5, new Rotation2d()));
-  
+
   private Pose2d m_pose;
 
   /** Creates a new DriveSubsystem. */
@@ -82,6 +86,27 @@ public class DriveSubsystem extends SubsystemBase {
     m_drive.arcadeDrive(speed, rotation);
   }
 
+  /**
+   * Sets the desired chassis speeds
+   * 
+   * @param chassisSpeeds desired chassis speeds
+   */
+  public void kinematicDrive(ChassisSpeeds chassisSpeeds) {
+    // Creating my kinematics object: track width of 27 inches
+    DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(Units.inchesToMeters(27.0));
+
+    // Convert to wheel speeds
+    DifferentialDriveWheelSpeeds wheelSpeeds = kinematics.toWheelSpeeds(chassisSpeeds);
+
+    // Left velocity
+    double leftVelocity = wheelSpeeds.leftMetersPerSecond;
+
+    // Right velocity
+    double rightVelocity = wheelSpeeds.rightMetersPerSecond;
+
+    m_drive.tankDrive(leftVelocity, rightVelocity);
+  }
+
   /** Resets the drive encoders to currently read a position of 0. */
   public void resetEncoders() {
     m_leftEncoder.reset();
@@ -94,6 +119,15 @@ public class DriveSubsystem extends SubsystemBase {
 
   public double getHeading() {
     return gyro.getAngle();
+  }
+
+  /**
+   * Gets the raw gyro data.
+   * 
+   * @return x[0], y[1], and z[2] data in degrees per second
+   */
+  public double getGyroAccelX() {
+    return gyro.getAccelX();
   }
 
   /**

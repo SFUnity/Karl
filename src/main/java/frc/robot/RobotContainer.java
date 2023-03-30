@@ -7,6 +7,7 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.Auto;
+import frc.robot.commands.BalanceCommand;
 import frc.robot.commands.DefaultArm;
 import frc.robot.commands.Turn;
 import frc.robot.subsystems.DriveSubsystem;
@@ -35,13 +36,17 @@ public class RobotContainer {
   private final Command kNormalAuto = new Auto(m_robotArm, m_robotDrive, 1);
   private final Command kMiddleAuto = new Auto(m_robotArm, m_robotDrive, 0);
   private final Command kBumpAuto = new Auto(m_robotArm, m_robotDrive, 2);
+  private final Command kBalanceForwards = new BalanceCommand(m_robotDrive, false);
+  private final Command kBalanceBackwards = new BalanceCommand(m_robotDrive, true);
   private final SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final CommandXboxController m_driverController =
-    new CommandXboxController(OperatorConstants.kDriverControllerPort);
+  private final CommandXboxController m_driverController = new CommandXboxController(
+      OperatorConstants.kDriverControllerPort);
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
+  /**
+   * The container for the robot. Contains subsystems, OI devices, and commands.
+   */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
@@ -62,8 +67,8 @@ public class RobotContainer {
     // Set the default arm command
     m_robotArm.setDefaultCommand(
         new DefaultArm(
-            m_robotArm, 
-            m_driverController.x(), 
+            m_robotArm,
+            m_driverController.x(),
             m_driverController.a(),
             m_driverController.b(),
             m_driverController.y()));
@@ -72,6 +77,8 @@ public class RobotContainer {
     m_chooser.setDefaultOption("normal", kNormalAuto);
     m_chooser.addOption("middle", kMiddleAuto);
     m_chooser.addOption("bump", kBumpAuto);
+    m_chooser.addOption("balance forwards", kBalanceForwards);
+    m_chooser.addOption("balance backwards", kBalanceBackwards);
 
     // Put the chooser on the dashboard
     Shuffleboard.getTab("Auto Options").add(m_chooser);
@@ -112,9 +119,9 @@ public class RobotContainer {
             0.5));
 
     new Trigger(m_driverController.pov(90)).whileTrue(new Turn(
-      m_robotDrive, 90));
+        m_robotDrive, 90));
 
-      new Trigger(m_driverController.pov(270)).whileTrue(new Turn(
+    new Trigger(m_driverController.pov(270)).whileTrue(new Turn(
         m_robotDrive, 270));
   }
 
