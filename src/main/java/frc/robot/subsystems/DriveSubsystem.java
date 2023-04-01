@@ -130,12 +130,16 @@ public class DriveSubsystem extends SubsystemBase {
     return gyro.getAccelX();
   }
 
+  public double getPitchDeg() {
+    return gyro.getXComplementaryAngle();
+  }
+
   /**
    * Gets the average distance of the TWO encoders.
    *
    * @return the average of the TWO encoder readings
    */
-  public double getAverageEncoderDistance() {
+  public double getEncoderDistance() {
     return (m_leftEncoder.getDistance() + m_rightEncoder.getDistance()) / 2.0;
   }
 
