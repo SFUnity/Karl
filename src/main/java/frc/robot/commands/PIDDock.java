@@ -9,19 +9,14 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveSubsystem;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 public class PIDDock extends CommandBase {
     private Timer dockedTimer;
     private final DriveSubsystem m_drive;
     private double encoderDistanceAtStart;
-    private final double direction;
+    private final double m_driection;
     private final PIDController dockPID;
     public static double dockP;
-    private double last_pitch = 0;
-    private final double MaxTravelDistance;
     public final double BalancingTolerance; // tolerance in degrees from 0 to decide if the robot is balanced/docked
     private GenericEntry balanced = Shuffleboard.getTab("Main")
             .add("Balanced?", false)
@@ -30,55 +25,31 @@ public class PIDDock extends CommandBase {
             .getEntry();
 
     public PIDDock(DriveSubsystem drivetrain, double direction) {
-        this.direction = direction;
-        MaxTravelDistance = 1.5 * direction;
+        m_driection = direction;
         BalancingTolerance = 2;
         m_drive = drivetrain;
         dockedTimer = new Timer();
+        dockP = 0.02;
+        dockPID = new PIDController(dockP, dockP / 7, dockP / 5);
 
-        ShuffleboardTab pidTab = Shuffleboard.getTab("Main");
-
-        // Add a sendable chooser to select the PID variable to be changed
-        SendableChooser<String> variableChooser = new SendableChooser<>();
-        variableChooser.setDefaultOption("Proportional Gain", "Kp");
-        pidTab.add("Variable Chooser", variableChooser).withPosition(0, 0);
-
-        // Add a slider widget for each PID variable and bind them to the corresponding
-        // PID variable
-        var kpSlider = pidTab.add("Kp", 0.02)
-                .withWidget(BuiltInWidgets.kNumberSlider)
-                .withProperties(Map.of("min", 0, "max", 1))
-                .withPosition(1, 0)
-                .withSize(2, 1)
-                .getEntry();
-
-        dockP = kpSlider.getDouble(0);
-        dockPID = new PIDController(dockP, 0, dockP / 5);
+        addRequirements(m_drive);
     }
 
     @Override
-    public void initialize() {
-        last_pitch = m_drive.getPitchDeg();
-        encoderDistanceAtStart = m_drive.getEncoderDistance();
-    }
+    public void initialize() {}
 
     @Override
     public void execute() {
         double pitch = m_drive.getPitchDeg();
+        System.out.println("Pitch = " + pitch + " degrees");
         // PID loop tries to go towards the setpoint, so in general, a positive
         // currentValue and a 0 setpoint will return negative output
         // this is why it actually runs at the opposite of what the PID loop says
         // if direction is -1, then the pid loop will just be reversed and forward will
         // be negative without needing to be multiplied by direction
-        double forward = -dockPID.calculate(pitch, 0);
+        double forward = dockPID.calculate(pitch, 0);
         System.out.println("Docking @ " + forward + " m/s");
-
-        if (getDistanceFromStart() * direction < MaxTravelDistance * direction && Math.abs(pitch - last_pitch) < 1) {
-            m_drive.tankDrive(forward, forward);
-        } else {
-            System.out.println("Stopped docking - too close to edge!");
-            m_drive.kinematicDrive(new ChassisSpeeds(0, 0, 0));
-        }
+        m_drive.kinematicDrive(new ChassisSpeeds(forward, 0, 0));
 
         if (Math.abs(pitch) < BalancingTolerance) {
             dockedTimer.start();
@@ -86,7 +57,6 @@ public class PIDDock extends CommandBase {
         } else {
             dockedTimer.reset();
         }
-        last_pitch = pitch;
     }
 
     @Override
