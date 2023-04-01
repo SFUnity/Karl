@@ -9,6 +9,7 @@ import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.Dock;
 import frc.robot.commands.Auto;
 import frc.robot.commands.AutoBalanceCommand;
+import frc.robot.commands.BalanceBangBangCommand;
 import frc.robot.commands.BalanceCommand;
 import frc.robot.commands.DefaultArm;
 import frc.robot.commands.Turn;
@@ -41,6 +42,7 @@ public class RobotContainer {
   private final Command kBalanceForwards = new BalanceCommand(m_robotDrive, false);
   private final Command kBalanceByKnight = new Dock(m_robotDrive, 0);
   private final Command kBalanceCopySign = new AutoBalanceCommand(m_robotDrive);
+  private final Command kBangBangBalance = new BalanceBangBangCommand(m_robotDrive);
   private final SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -83,6 +85,7 @@ public class RobotContainer {
     m_chooser.addOption("balance forwards", kBalanceForwards);
     m_chooser.addOption("knight dock", kBalanceByKnight);
     m_chooser.addOption("Copysign dock", kBalanceCopySign);
+    m_chooser.addOption("BangBang Balance", kBangBangBalance);
 
     // Put the chooser on the dashboard
     Shuffleboard.getTab("Main").add("Auto Options", m_chooser);
