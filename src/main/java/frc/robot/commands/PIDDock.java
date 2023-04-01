@@ -9,6 +9,9 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveSubsystem;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 public class PIDDock extends CommandBase {
     private Timer dockedTimer;
@@ -16,7 +19,7 @@ public class PIDDock extends CommandBase {
     private double encoderDistanceAtStart;
     private final double direction;
     private final PIDController dockPID;
-    public final double dockP;
+    public static double dockP;
     private double last_pitch = 0;
     private final double MaxTravelDistance;
     public final double BalancingTolerance; // tolerance in degrees from 0 to decide if the robot is balanced/docked
@@ -30,10 +33,27 @@ public class PIDDock extends CommandBase {
         this.direction = direction;
         MaxTravelDistance = 1.5 * direction;
         BalancingTolerance = 2;
-        dockP = 0.02;
-        dockPID = new PIDController(dockP, 0, dockP / 5);
         m_drive = drivetrain;
         dockedTimer = new Timer();
+
+        ShuffleboardTab pidTab = Shuffleboard.getTab("Main");
+
+        // Add a sendable chooser to select the PID variable to be changed
+        SendableChooser<String> variableChooser = new SendableChooser<>();
+        variableChooser.setDefaultOption("Proportional Gain", "Kp");
+        pidTab.add("Variable Chooser", variableChooser).withPosition(0, 0);
+
+        // Add a slider widget for each PID variable and bind them to the corresponding
+        // PID variable
+        var kpSlider = pidTab.add("Kp", 0.02)
+                .withWidget(BuiltInWidgets.kNumberSlider)
+                .withProperties(Map.of("min", 0, "max", 1))
+                .withPosition(1, 0)
+                .withSize(2, 1)
+                .getEntry();
+
+        dockP = kpSlider.getDouble(0);
+        dockPID = new PIDController(dockP, 0, dockP / 5);
     }
 
     @Override
