@@ -6,11 +6,11 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.DefaultDrive;
-import frc.robot.commands.Dock;
+import frc.robot.commands.PIDDock;
 import frc.robot.commands.Auto;
-import frc.robot.commands.AutoBalanceCommand;
+import frc.robot.commands.CopySignDock;
 import frc.robot.commands.BalanceBangBangCommand;
-import frc.robot.commands.BalanceCommand;
+import frc.robot.commands.AccelDock;
 import frc.robot.commands.DefaultArm;
 import frc.robot.commands.Turn;
 import frc.robot.subsystems.DriveSubsystem;
@@ -39,9 +39,9 @@ public class RobotContainer {
   private final Command kNormalAuto = new Auto(m_robotArm, m_robotDrive, 1);
   private final Command kMiddleAuto = new Auto(m_robotArm, m_robotDrive, 0);
   private final Command kBumpAuto = new Auto(m_robotArm, m_robotDrive, 2);
-  private final Command kBalanceForwards = new BalanceCommand(m_robotDrive, false);
-  private final Command kBalanceByKnight = new Dock(m_robotDrive, 0);
-  private final Command kBalanceCopySign = new AutoBalanceCommand(m_robotDrive);
+  private final Command kAccelDock = new AccelDock(m_robotDrive, false);
+  private final Command kPIDDock = new PIDDock(m_robotDrive, 0);
+  private final Command kCopySignDock = new CopySignDock(m_robotDrive);
   private final Command kBangBangBalance = new BalanceBangBangCommand(m_robotDrive);
   private final SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -82,9 +82,9 @@ public class RobotContainer {
     m_chooser.setDefaultOption("normal", kNormalAuto);
     m_chooser.addOption("middle", kMiddleAuto);
     m_chooser.addOption("bump", kBumpAuto);
-    m_chooser.addOption("balance forwards", kBalanceForwards);
-    m_chooser.addOption("knight dock", kBalanceByKnight);
-    m_chooser.addOption("Copysign dock", kBalanceCopySign);
+    m_chooser.addOption("balance forwards", kAccelDock);
+    m_chooser.addOption("knight dock", kPIDDock);
+    m_chooser.addOption("Copysign dock", kCopySignDock);
     m_chooser.addOption("BangBang Balance", kBangBangBalance);
 
     // Put the chooser on the dashboard

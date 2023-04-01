@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveSubsystem;
 
-public class AutoBalanceCommand extends CommandBase {
+public class CopySignDock extends CommandBase {
 
     // Instantiate variables here
     DriveSubsystem m_drive;
@@ -14,7 +14,7 @@ public class AutoBalanceCommand extends CommandBase {
 
     private Timer timer;
 
-    public AutoBalanceCommand(DriveSubsystem driveSubsystem) {
+    public CopySignDock(DriveSubsystem driveSubsystem) {
         m_drive = driveSubsystem;
 
         addRequirements(m_drive);

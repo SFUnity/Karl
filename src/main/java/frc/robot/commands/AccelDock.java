@@ -7,13 +7,13 @@ import frc.robot.subsystems.DriveSubsystem;
 /**
  * Command to balance the charge station
  */
-public class BalanceCommand extends CommandBase {
+public class AccelDock extends CommandBase {
 
     private final DriveSubsystem m_drive;
     private final boolean m_isReverse;
     private boolean done;
 
-    public BalanceCommand(DriveSubsystem drivetrainSubsystem, boolean isReverse) {
+    public AccelDock(DriveSubsystem drivetrainSubsystem, boolean isReverse) {
         m_drive = drivetrainSubsystem;
         m_isReverse = isReverse;
 

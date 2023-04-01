@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveSubsystem;
 
-public class Dock extends CommandBase {
+public class PIDDock extends CommandBase {
     private Timer dockedTimer;
     private final DriveSubsystem m_drive;
     private double encoderDistanceAtStart;
@@ -26,7 +26,7 @@ public class Dock extends CommandBase {
             .withProperties(Map.of("colorWhenTrue", "green", "colorWhenFalse", "maroon"))
             .getEntry();
 
-    public Dock(DriveSubsystem drivetrain, double direction) {
+    public PIDDock(DriveSubsystem drivetrain, double direction) {
         this.direction = direction;
         MaxTravelDistance = 1.5 * direction;
         BalancingTolerance = 2;
