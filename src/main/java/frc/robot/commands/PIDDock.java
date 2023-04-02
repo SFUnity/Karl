@@ -16,12 +16,14 @@ public class PIDDock extends CommandBase {
     private double encoderDistanceAtStart;
     private final boolean m_reverse;
     private final PIDController dockPID;
-    public static double dockP;
     public final double BalancingTolerance; // tolerance in degrees from 0 to decide if the robot is balanced/docked
     private GenericEntry balanced = Shuffleboard.getTab("Main")
             .add("Balanced?", false)
             .withWidget("Boolean Box")
             .withProperties(Map.of("colorWhenTrue", "green", "colorWhenFalse", "maroon"))
+            .getEntry();
+    private GenericEntry dockP = Shuffleboard.getTab("Main")
+            .add("dockP", 0.02)
             .getEntry();
 
     public PIDDock(DriveSubsystem drivetrain, boolean reverse) {
@@ -29,8 +31,9 @@ public class PIDDock extends CommandBase {
         BalancingTolerance = 2;
         m_drive = drivetrain;
         dockedTimer = new Timer();
-        dockP = 0.02;
-        dockPID = new PIDController(dockP, dockP / 7, dockP / 5);
+        dockPID = new PIDController(dockP.getDouble(0.02),
+                dockP.getDouble(0.02) / 7,
+                dockP.getDouble(0.02) / 5);
 
         addRequirements(m_drive);
     }
