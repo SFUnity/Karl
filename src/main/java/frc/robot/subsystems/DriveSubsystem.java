@@ -121,13 +121,8 @@ public class DriveSubsystem extends SubsystemBase {
     return gyro.getAngle();
   }
 
-  /**
-   * Gets the raw gyro data.
-   * 
-   * @return x[0], y[1], and z[2] data in degrees per second
-   */
-  public double getGyroAccelX() {
-    return gyro.getAccelX();
+  public double getAngle() {
+    return gyro.getAngle();
   }
 
   public double getPitchDeg() {
@@ -159,10 +154,6 @@ public class DriveSubsystem extends SubsystemBase {
    */
   public Encoder getRightEncoder() {
     return m_rightEncoder;
-  }
-
-  public double getAngle() {
-    return gyro.getAngle();
   }
 
   public Pose2d getPose() {
