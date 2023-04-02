@@ -6,10 +6,10 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.DefaultDrive;
-import frc.robot.commands.PIDDock;
-import frc.robot.commands.Auto;
 import frc.robot.commands.DefaultArm;
 import frc.robot.commands.Turn;
+import frc.robot.commands.Auto.DefaultAuto;
+import frc.robot.commands.Auto.PIDDock;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -33,9 +33,9 @@ public class RobotContainer {
   private final ArmSubsystem m_robotArm = new ArmSubsystem();
 
   // Auto piece chooser
-  private final Command kNormalAuto = new Auto(m_robotArm, m_robotDrive, 1);
-  private final Command kMiddleAuto = new Auto(m_robotArm, m_robotDrive, 0);
-  private final Command kBumpAuto = new Auto(m_robotArm, m_robotDrive, 2);
+  private final Command kNormalAuto = new DefaultAuto(m_robotArm, m_robotDrive, 1);
+  private final Command kMiddleAuto = new DefaultAuto(m_robotArm, m_robotDrive, 0);
+  private final Command kBumpAuto = new DefaultAuto(m_robotArm, m_robotDrive, 2);
   private final Command kPIDDock = new PIDDock(m_robotDrive, false);
   private final SendableChooser<Command> m_chooser = new SendableChooser<>();
 

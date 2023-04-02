@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.Auto;
 
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.ArmConstants;
 
-public class Auto extends CommandBase {
+public class DefaultAuto extends CommandBase {
     private final ArmSubsystem m_arm;
     private final DriveSubsystem m_drive;
     private final double m_select;
@@ -23,7 +23,7 @@ public class Auto extends CommandBase {
      *
      * @param subsystem The drive subsystem this command wil run on.
      */
-    public Auto(ArmSubsystem subsystem, DriveSubsystem subsystem2, double select) {
+    public DefaultAuto(ArmSubsystem subsystem, DriveSubsystem subsystem2, double select) {
         m_arm = subsystem;
         m_drive = subsystem2;
         m_select = select;
@@ -50,7 +50,7 @@ public class Auto extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        
+
         timeElapsed = Timer.getFPGATimestamp() - autoStartTime;
 
         if (timeElapsed < ArmConstants.ARM_EXTEND_TIME_S) {
@@ -61,11 +61,13 @@ public class Auto extends CommandBase {
             m_arm.idleArm();
             m_arm.cubeInConeOut();
             m_drive.tankDrive(0, 0);
-        } else if (timeElapsed < ArmConstants.ARM_EXTEND_TIME_S + ArmConstants.AUTO_THROW_TIME_S + ArmConstants.ARM_EXTEND_TIME_S) {
+        } else if (timeElapsed < ArmConstants.ARM_EXTEND_TIME_S + ArmConstants.AUTO_THROW_TIME_S
+                + ArmConstants.ARM_EXTEND_TIME_S) {
             m_arm.lowerArm();
             m_arm.holdPiece();
             m_drive.tankDrive(0, 0);
-        } else if (timeElapsed < ArmConstants.ARM_EXTEND_TIME_S + ArmConstants.AUTO_THROW_TIME_S + ArmConstants.ARM_EXTEND_TIME_S + ArmConstants.AUTO_DRIVE_TIME) {
+        } else if (timeElapsed < ArmConstants.ARM_EXTEND_TIME_S + ArmConstants.AUTO_THROW_TIME_S
+                + ArmConstants.ARM_EXTEND_TIME_S + ArmConstants.AUTO_DRIVE_TIME) {
             m_arm.idleArm();
             m_arm.holdPiece();
             m_drive.tankDrive(ArmConstants.AUTO_DRIVE_SPEED, ArmConstants.AUTO_DRIVE_SPEED);
