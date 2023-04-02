@@ -40,7 +40,7 @@ public class RobotContainer {
   private final Command kMiddleAuto = new Auto(m_robotArm, m_robotDrive, 0);
   private final Command kBumpAuto = new Auto(m_robotArm, m_robotDrive, 2);
   private final Command kAccelDock = new AccelDock(m_robotDrive, false);
-  private final Command kPIDDock = new PIDDock(m_robotDrive, 0);
+  private final Command kPIDDock = new PIDDock(m_robotDrive, false);
   private final Command kCopySignDock = new CopySignDock(m_robotDrive);
   private final Command kBangBangBalance = new BalanceBangBangCommand(m_robotDrive);
   private final SendableChooser<Command> m_chooser = new SendableChooser<>();

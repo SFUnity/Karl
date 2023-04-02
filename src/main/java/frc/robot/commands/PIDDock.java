@@ -14,7 +14,7 @@ public class PIDDock extends CommandBase {
     private Timer dockedTimer;
     private final DriveSubsystem m_drive;
     private double encoderDistanceAtStart;
-    private final double m_driection;
+    private final boolean m_reverse;
     private final PIDController dockPID;
     public static double dockP;
     public final double BalancingTolerance; // tolerance in degrees from 0 to decide if the robot is balanced/docked
@@ -24,8 +24,8 @@ public class PIDDock extends CommandBase {
             .withProperties(Map.of("colorWhenTrue", "green", "colorWhenFalse", "maroon"))
             .getEntry();
 
-    public PIDDock(DriveSubsystem drivetrain, double direction) {
-        m_driection = direction;
+    public PIDDock(DriveSubsystem drivetrain, boolean reverse) {
+        m_reverse = reverse;
         BalancingTolerance = 2;
         m_drive = drivetrain;
         dockedTimer = new Timer();
@@ -36,7 +36,8 @@ public class PIDDock extends CommandBase {
     }
 
     @Override
-    public void initialize() {}
+    public void initialize() {
+    }
 
     @Override
     public void execute() {
@@ -48,6 +49,9 @@ public class PIDDock extends CommandBase {
         // if direction is -1, then the pid loop will just be reversed and forward will
         // be negative without needing to be multiplied by direction
         double forward = dockPID.calculate(pitch, 0);
+        if (m_reverse == true) {
+            forward *= -1;
+        }
         System.out.println("Docking @ " + forward + " m/s");
         m_drive.kinematicDrive(new ChassisSpeeds(forward, 0, 0));
 
