@@ -5,9 +5,9 @@
 # Prerequisites
 *.d
 
-# # Simulation capabilities
-# simgui.json
-# simgui-ds.json
+# Simulation capabilities
+simgui.json
+simgui-ds.json
 
 # Compiled Object files
 *.slo
