@@ -36,6 +36,7 @@ public class RobotContainer {
   private final Command kNormalAuto = new Auto(m_robotArm, m_robotDrive, 1);
   private final Command kMiddleAuto = new Auto(m_robotArm, m_robotDrive, 0);
   private final Command kBumpAuto = new Auto(m_robotArm, m_robotDrive, 2);
+  private final Command kNothingAuto = new Auto(m_robotArm, m_robotDrive, 3);
   private final Command kPIDDock = new PIDDock(m_robotDrive, false);
   private final SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -76,6 +77,7 @@ public class RobotContainer {
     m_chooser.setDefaultOption("normal", kNormalAuto);
     m_chooser.addOption("middle", kMiddleAuto);
     m_chooser.addOption("bump", kBumpAuto);
+    m_chooser.addOption("nothing", kNothingAuto);
     m_chooser.addOption("knight dock", kPIDDock);
 
     // Put the chooser on the dashboard

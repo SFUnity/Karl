@@ -50,8 +50,12 @@ public class Auto extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        
+
         timeElapsed = Timer.getFPGATimestamp() - autoStartTime;
+
+        if (m_select == 3) {
+            timeElapsed = 15;
+        }
 
         if (timeElapsed < ArmConstants.ARM_EXTEND_TIME_S) {
             m_arm.raiseArm();
@@ -61,11 +65,13 @@ public class Auto extends CommandBase {
             m_arm.idleArm();
             m_arm.cubeInConeOut();
             m_drive.tankDrive(0, 0);
-        } else if (timeElapsed < ArmConstants.ARM_EXTEND_TIME_S + ArmConstants.AUTO_THROW_TIME_S + ArmConstants.ARM_EXTEND_TIME_S) {
+        } else if (timeElapsed < ArmConstants.ARM_EXTEND_TIME_S + ArmConstants.AUTO_THROW_TIME_S
+                + ArmConstants.ARM_EXTEND_TIME_S) {
             m_arm.lowerArm();
             m_arm.holdPiece();
             m_drive.tankDrive(0, 0);
-        } else if (timeElapsed < ArmConstants.ARM_EXTEND_TIME_S + ArmConstants.AUTO_THROW_TIME_S + ArmConstants.ARM_EXTEND_TIME_S + ArmConstants.AUTO_DRIVE_TIME) {
+        } else if (timeElapsed < ArmConstants.ARM_EXTEND_TIME_S + ArmConstants.AUTO_THROW_TIME_S
+                + ArmConstants.ARM_EXTEND_TIME_S + ArmConstants.AUTO_DRIVE_TIME) {
             m_arm.idleArm();
             m_arm.holdPiece();
             m_drive.tankDrive(ArmConstants.AUTO_DRIVE_SPEED, ArmConstants.AUTO_DRIVE_SPEED);
