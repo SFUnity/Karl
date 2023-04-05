@@ -40,9 +40,9 @@ public class RobotContainer {
   private final Command kBumpAuto = new DefaultAuto(m_robotArm, m_robotDrive, 2);
   private final Command kPIDDock = new PIDDock(m_robotDrive, false);
   private final Command kNothingAuto = new DefaultAuto(m_robotArm, m_robotDrive, 3);
-  private final Command kBumpCone = new ComplexAuto(m_robotDrive, m_robotArm, "bump", "cone");
-  private final Command kNormalCube = new ComplexAuto(m_robotDrive, m_robotArm, "normal", "cube");
-  private final Command kNothing2 = new ComplexAuto(m_robotDrive, m_robotArm, "nothing", "cube");
+  private final Command kBumpCone = new ComplexAuto(m_robotDrive, m_robotArm, "bump");
+  private final Command kNormalCube = new ComplexAuto(m_robotDrive, m_robotArm, "normal");
+  private final Command kNothing2 = new ComplexAuto(m_robotDrive, m_robotArm, "nothing");
   private final SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   public static final int CONE = 1;
@@ -88,17 +88,16 @@ public class RobotContainer {
     m_chooser.addOption("middle", kMiddleAuto);
     m_chooser.addOption("bump", kBumpAuto);
     m_chooser.addOption("knight dock", kPIDDock);
-    m_chooser.addOption("bump cone", kBumpCone);
-    m_chooser.addOption("normal cube", kNormalCube);
+    m_chooser.addOption("bump w/ piece", kBumpCone);
+    m_chooser.addOption("normal w/ piece", kNormalCube);
     m_chooser.addOption("nothing2", kNothing2);
 
     m_chooser2.addOption("cube", CUBE);
     m_chooser2.addOption("cone", CONE);
 
-    ArmConstants.lastGamePiece = m_chooser2.getSelected();
-
     // Put the chooser on the dashboard
     Shuffleboard.getTab("Main").add("Auto Options", m_chooser);
+    Shuffleboard.getTab("Main").add("Piece Options", m_chooser2);
   }
 
   /**
@@ -148,7 +147,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    System.out.print("getAuto ran");
+    ArmConstants.lastGamePiece = m_chooser2.getSelected();
     return m_chooser.getSelected();
   }
 }

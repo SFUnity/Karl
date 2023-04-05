@@ -8,7 +8,7 @@ import frc.robot.subsystems.DriveSubsystem;
 
 public class ComplexAuto extends SequentialCommandGroup {
 
-    public ComplexAuto(DriveSubsystem drive, ArmSubsystem arm, String selected, String piece) {
+    public ComplexAuto(DriveSubsystem drive, ArmSubsystem arm, String selected) {
         Command PlacePiece = new PlacePieceSimple(arm, ArmConstants.lastGamePiece);
         Command DriveBack8 = new DriveDistance(drive, 8, -0.5);
         Command DriveSlow2Forwards = new DriveDistance(drive, 2, 0.25);
@@ -16,13 +16,14 @@ public class ComplexAuto extends SequentialCommandGroup {
         Command Turn90 = new TurnToAngle(drive, 90);
         Command BalanceForwards = new PIDDock(drive, false);
 
-        if (selected == "nothing") {
-        } else if (selected == "bump") {
+        if (selected == "bump") {
             addCommands(PlacePiece, DriveBack8, Turn90);
         } else if (selected == "flat") {
             addCommands(PlacePiece, DriveBack8, TurnAround);
         } else if (selected == "balance") {
             addCommands(PlacePiece, TurnAround, DriveSlow2Forwards, BalanceForwards);
+        } else {
+            return;
         }
         addRequirements(drive, arm);
     }
