@@ -129,6 +129,11 @@ public class DriveSubsystem extends SubsystemBase {
     return gyro.getXComplementaryAngle();
   }
 
+  public void reverseEncoders() {
+    m_leftEncoder.setReverseDirection(true);
+    m_rightEncoder.setReverseDirection(true);
+  }
+
   /**
    * Gets the average distance of the TWO encoders.
    *

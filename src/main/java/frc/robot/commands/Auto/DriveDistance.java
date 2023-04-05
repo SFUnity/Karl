@@ -19,6 +19,9 @@ public class DriveDistance extends CommandBase {
     @Override
     public void initialize() {
         m_drive.resetEncoders();
+        if (m_speed < 0) {
+            m_drive.reverseEncoders();
+        }
         m_drive.tankDrive(0, 0);
     }
 
@@ -35,6 +38,6 @@ public class DriveDistance extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return m_drive.getEncoderDistance() >= m_distance;
+        return m_drive.getEncoderDistance() <= m_distance;
     }
 }

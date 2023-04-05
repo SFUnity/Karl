@@ -7,6 +7,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveSubsystem;
 
@@ -17,23 +18,22 @@ public class PIDDock extends CommandBase {
     private final boolean m_reverse;
     private final PIDController dockPID;
     public final double BalancingTolerance; // tolerance in degrees from 0 to decide if the robot is balanced/docked
-    private GenericEntry balanced = Shuffleboard.getTab("Main")
-            .add("Balanced?", false)
-            .withWidget("Boolean Box")
-            .withProperties(Map.of("colorWhenTrue", "green", "colorWhenFalse", "maroon"))
-            .getEntry();
-    private GenericEntry dockP = Shuffleboard.getTab("Main")
-            .add("dockP", 0.02)
-            .getEntry();
+    // private ShuffleboardTab tab = Shuffleboard.getTab("Main");
+    // private GenericEntry balanced = 
+    //      tab.add("Balanced?", false)
+    //         .withWidget("Boolean Box")
+    //         .withProperties(Map.of("colorWhenTrue", "green", "colorWhenFalse", "maroon"))
+    //         .getEntry();
+    private final double dockP = 0.02;
 
     public PIDDock(DriveSubsystem drivetrain, boolean reverse) {
         m_reverse = reverse;
         BalancingTolerance = 2;
         m_drive = drivetrain;
         dockedTimer = new Timer();
-        dockPID = new PIDController(dockP.getDouble(0.02),
-                dockP.getDouble(0.02) / 7,
-                dockP.getDouble(0.02) / 5);
+        dockPID = new PIDController(dockP,
+                dockP / 7,
+                dockP / 5);
 
         addRequirements(m_drive);
     }
@@ -60,7 +60,7 @@ public class PIDDock extends CommandBase {
 
         if (Math.abs(pitch) < BalancingTolerance) {
             dockedTimer.start();
-            balanced.setBoolean(true);
+            // balanced.setBoolean(true);
         } else {
             dockedTimer.reset();
         }

@@ -11,7 +11,9 @@ import frc.robot.commands.DefaultArm;
 import frc.robot.commands.Turn;
 import frc.robot.commands.Auto.ComplexAuto;
 import frc.robot.commands.Auto.DefaultAuto;
+import frc.robot.commands.Auto.DriveDistance;
 import frc.robot.commands.Auto.PIDDock;
+import frc.robot.commands.Auto.PlacePieceSimple;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -40,9 +42,12 @@ public class RobotContainer {
   private final Command kBumpAuto = new DefaultAuto(m_robotArm, m_robotDrive, 2);
   private final Command kPIDDock = new PIDDock(m_robotDrive, false);
   private final Command kNothingAuto = new DefaultAuto(m_robotArm, m_robotDrive, 3);
-  private final Command kBumpCone = new ComplexAuto(m_robotDrive, m_robotArm, "bump");
-  private final Command kNormalCube = new ComplexAuto(m_robotDrive, m_robotArm, "normal");
-  private final Command kNothing2 = new ComplexAuto(m_robotDrive, m_robotArm, "nothing");
+  // private final Command kBump = new ComplexAuto(m_robotDrive, m_robotArm, 1);
+  private final Command kBump = new PlacePieceSimple(m_robotArm, CONE).andThen(new DriveDistance(m_robotDrive, -8, -0.5));
+  private final Command kNormal = new ComplexAuto(m_robotDrive, m_robotArm, 2);
+  private final Command kNothing2 = new ComplexAuto(m_robotDrive, m_robotArm, 0);
+  private final Command kPlaceCone = new PlacePieceSimple(m_robotArm, CONE);
+  private final Command kDriveBack8 = new DriveDistance(m_robotDrive, -8, -0.5);
   private final SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   public static final int CONE = 1;
@@ -87,11 +92,12 @@ public class RobotContainer {
     m_chooser.addOption("normal", kNormalAuto);
     m_chooser.addOption("middle", kMiddleAuto);
     m_chooser.addOption("bump", kBumpAuto);
-    m_chooser.addOption("nothing", kNothingAuto);
     m_chooser.addOption("knight dock", kPIDDock);
-    m_chooser.addOption("bump w/ piece", kBumpCone);
-    m_chooser.addOption("normal w/ piece", kNormalCube);
+    m_chooser.addOption("bump w/ piece", kBump);
+    m_chooser.addOption("normal w/ piece", kNormal);
     m_chooser.addOption("nothing2", kNothing2);
+    m_chooser.addOption("place cone", kPlaceCone);
+    m_chooser.addOption("drive back 8ft", kDriveBack8);
 
     m_chooser2.addOption("cube", CUBE);
     m_chooser2.addOption("cone", CONE);
@@ -148,7 +154,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    ArmConstants.lastGamePiece = m_chooser2.getSelected();
     return m_chooser.getSelected();
   }
 }
