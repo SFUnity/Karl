@@ -13,14 +13,18 @@ public class PlacePieceSimple extends CommandBase {
     private final ArmSubsystem m_arm;
     private double autoStartTime;
     private static double timeElapsed;
+    private final int m_piece;
+    public static final int CONE = 1;
+    public static final int CUBE = 2;
 
     /**
      * Creates a new DefaultDrive.
      *
      * @param subsystem The drive subsystem this command wil run on.
      */
-    public PlacePieceSimple(ArmSubsystem subsystem) {
+    public PlacePieceSimple(ArmSubsystem subsystem, Integer piece) {
         m_arm = subsystem;
+        m_piece = piece;
         addRequirements(m_arm);
     }
 
@@ -41,7 +45,11 @@ public class PlacePieceSimple extends CommandBase {
             m_arm.holdPiece();
         } else if (timeElapsed < ArmConstants.ARM_EXTEND_TIME_S + ArmConstants.AUTO_THROW_TIME_S) {
             m_arm.idleArm();
-            m_arm.cubeInConeOut();
+            if (m_piece == CONE) {
+                m_arm.cubeInConeOut();
+            } else if (m_piece == CUBE) {
+                m_arm.coneInCubeOut();
+            }
         } else if (timeElapsed < ArmConstants.ARM_EXTEND_TIME_S + ArmConstants.AUTO_THROW_TIME_S
                 + ArmConstants.ARM_EXTEND_TIME_S) {
             m_arm.lowerArm();

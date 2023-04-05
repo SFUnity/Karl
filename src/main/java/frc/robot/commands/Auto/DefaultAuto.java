@@ -37,6 +37,10 @@ public class DefaultAuto extends CommandBase {
 
         DriveConstants.kSpeed = 1.0;
 
+        if (m_select == 3) {
+            timeElapsed = 15;
+        }
+
         if (m_select == 1) {
             ArmConstants.AUTO_DRIVE_SPEED = -0.5;
         } else if (m_select == 2) {
