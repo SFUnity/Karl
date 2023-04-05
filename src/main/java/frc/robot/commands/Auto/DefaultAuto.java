@@ -57,6 +57,10 @@ public class DefaultAuto extends CommandBase {
 
         timeElapsed = Timer.getFPGATimestamp() - autoStartTime;
 
+        if (m_select == 3) {
+            timeElapsed = 15;
+        }
+
         if (timeElapsed < ArmConstants.ARM_EXTEND_TIME_S) {
             m_arm.raiseArm();
             m_arm.holdPiece();

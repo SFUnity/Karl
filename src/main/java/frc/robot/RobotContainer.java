@@ -87,6 +87,7 @@ public class RobotContainer {
     m_chooser.addOption("normal", kNormalAuto);
     m_chooser.addOption("middle", kMiddleAuto);
     m_chooser.addOption("bump", kBumpAuto);
+    m_chooser.addOption("nothing", kNothingAuto);
     m_chooser.addOption("knight dock", kPIDDock);
     m_chooser.addOption("bump w/ piece", kBumpCone);
     m_chooser.addOption("normal w/ piece", kNormalCube);
