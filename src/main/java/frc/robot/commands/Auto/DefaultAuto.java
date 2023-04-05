@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.Auto;
 
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.ArmConstants;
 
-public class Auto extends CommandBase {
+public class DefaultAuto extends CommandBase {
     private final ArmSubsystem m_arm;
     private final DriveSubsystem m_drive;
     private final double m_select;
@@ -23,7 +23,7 @@ public class Auto extends CommandBase {
      *
      * @param subsystem The drive subsystem this command wil run on.
      */
-    public Auto(ArmSubsystem subsystem, DriveSubsystem subsystem2, double select) {
+    public DefaultAuto(ArmSubsystem subsystem, DriveSubsystem subsystem2, double select) {
         m_arm = subsystem;
         m_drive = subsystem2;
         m_select = select;
@@ -36,6 +36,10 @@ public class Auto extends CommandBase {
         autoStartTime = Timer.getFPGATimestamp();
 
         DriveConstants.kSpeed = 1.0;
+
+        if (m_select == 3) {
+            timeElapsed = 15;
+        }
 
         if (m_select == 1) {
             ArmConstants.AUTO_DRIVE_SPEED = -0.5;

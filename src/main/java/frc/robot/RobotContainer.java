@@ -4,12 +4,14 @@
 
 package frc.robot;
 
+import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.DefaultDrive;
-import frc.robot.commands.PIDDock;
-import frc.robot.commands.Auto;
 import frc.robot.commands.DefaultArm;
 import frc.robot.commands.Turn;
+import frc.robot.commands.Auto.ComplexAuto;
+import frc.robot.commands.Auto.DefaultAuto;
+import frc.robot.commands.Auto.PIDDock;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -33,12 +35,19 @@ public class RobotContainer {
   private final ArmSubsystem m_robotArm = new ArmSubsystem();
 
   // Auto piece chooser
-  private final Command kNormalAuto = new Auto(m_robotArm, m_robotDrive, 1);
-  private final Command kMiddleAuto = new Auto(m_robotArm, m_robotDrive, 0);
-  private final Command kBumpAuto = new Auto(m_robotArm, m_robotDrive, 2);
-  private final Command kNothingAuto = new Auto(m_robotArm, m_robotDrive, 3);
+  private final Command kNormalAuto = new DefaultAuto(m_robotArm, m_robotDrive, 1);
+  private final Command kMiddleAuto = new DefaultAuto(m_robotArm, m_robotDrive, 0);
+  private final Command kBumpAuto = new DefaultAuto(m_robotArm, m_robotDrive, 2);
   private final Command kPIDDock = new PIDDock(m_robotDrive, false);
+  private final Command kNothingAuto = new DefaultAuto(m_robotArm, m_robotDrive, 3);
+  private final Command kBumpCone = new ComplexAuto(m_robotDrive, m_robotArm, "bump");
+  private final Command kNormalCube = new ComplexAuto(m_robotDrive, m_robotArm, "normal");
+  private final Command kNothing2 = new ComplexAuto(m_robotDrive, m_robotArm, "nothing");
   private final SendableChooser<Command> m_chooser = new SendableChooser<>();
+
+  public static final int CONE = 1;
+  public static final int CUBE = 2;
+  private final SendableChooser<Integer> m_chooser2 = new SendableChooser<>();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController = new CommandXboxController(
@@ -74,14 +83,22 @@ public class RobotContainer {
             m_driverController.y()));
 
     // Add commands to the autonomous piece chooser
-    m_chooser.setDefaultOption("normal", kNormalAuto);
+    m_chooser.setDefaultOption("nothing", kNothingAuto);
+    m_chooser.addOption("normal", kNormalAuto);
     m_chooser.addOption("middle", kMiddleAuto);
     m_chooser.addOption("bump", kBumpAuto);
     m_chooser.addOption("nothing", kNothingAuto);
     m_chooser.addOption("knight dock", kPIDDock);
+    m_chooser.addOption("bump w/ piece", kBumpCone);
+    m_chooser.addOption("normal w/ piece", kNormalCube);
+    m_chooser.addOption("nothing2", kNothing2);
+
+    m_chooser2.addOption("cube", CUBE);
+    m_chooser2.addOption("cone", CONE);
 
     // Put the chooser on the dashboard
     Shuffleboard.getTab("Main").add("Auto Options", m_chooser);
+    Shuffleboard.getTab("Main").add("Piece Options", m_chooser2);
   }
 
   /**
@@ -131,7 +148,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    System.out.print("getAuto ran");
+    ArmConstants.lastGamePiece = m_chooser2.getSelected();
     return m_chooser.getSelected();
   }
 }
