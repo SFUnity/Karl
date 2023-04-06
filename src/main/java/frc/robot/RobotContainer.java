@@ -8,7 +8,7 @@ import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.DefaultArm;
-import frc.robot.commands.VisionAlignment;
+import frc.robot.commands.TurnToAngle;
 import frc.robot.commands.Turn;
 import frc.robot.commands.Auto.ComplexAuto;
 import frc.robot.commands.Auto.DefaultAuto;
@@ -150,8 +150,8 @@ public class RobotContainer {
     new Trigger(m_driverController.pov(270)).whileTrue(new Turn(
         m_robotDrive, 270));
 
-  //  new Trigger(m_driverController.y()) 
-  //     .onTrue(new VisionAlignment(m_robotVision, m_robotDrive, false));
+    new Trigger(m_driverController.rightStick()) 
+       .onTrue(new TurnToAngle(m_robotDrive, 90));
   }
 
   /**
