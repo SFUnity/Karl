@@ -8,6 +8,7 @@ import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.DefaultArm;
+import frc.robot.commands.VisionAlignment;
 import frc.robot.commands.Turn;
 import frc.robot.commands.Auto.ComplexAuto;
 import frc.robot.commands.Auto.DefaultAuto;
@@ -16,6 +17,7 @@ import frc.robot.commands.Auto.PIDDock;
 import frc.robot.commands.Auto.PlacePieceSimple;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.VisionSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -35,6 +37,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
   private final ArmSubsystem m_robotArm = new ArmSubsystem();
+  private final VisionSubsystem m_robotVision = new VisionSubsystem();
 
   // Auto piece chooser
   private final Command kNormalAuto = new DefaultAuto(m_robotArm, m_robotDrive, 1);
@@ -146,6 +149,9 @@ public class RobotContainer {
 
     new Trigger(m_driverController.pov(270)).whileTrue(new Turn(
         m_robotDrive, 270));
+
+  //  new Trigger(m_driverController.y()) 
+  //     .onTrue(new VisionAlignment(m_robotVision, m_robotDrive, false));
   }
 
   /**
