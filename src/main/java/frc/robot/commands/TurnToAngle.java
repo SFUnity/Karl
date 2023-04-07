@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class TurnToAngle extends CommandBase {
     private final DriveSubsystem m_drive;
     private final double m_setpoint;
-    private final double kP = 0.03;
-    private final double kI = 0;
-    private final double kD = 0.0055;
+    private final double kP = 0.047;
+    private final double kI = .01;
+    private final double kD = 0.01;
     private final PIDController turnPID = new PIDController(kP, kI, kD);
 
     /**
@@ -42,6 +42,6 @@ public class TurnToAngle extends CommandBase {
     @Override
     public boolean isFinished() {
         // return false;
-        return (m_setpoint - 5) < m_drive.getHeading() && m_drive.getHeading() < (m_setpoint + 5);
+       return (m_setpoint - 5) < m_drive.getHeading() && m_drive.getHeading() < (m_setpoint + 5);
     }
 }
