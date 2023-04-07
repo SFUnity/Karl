@@ -155,11 +155,11 @@ public class RobotContainer {
   //  new Trigger(m_driverController.rightStick()) 
     //   .onTrue(new TurnToAngle(m_robotDrive, 180));
 
-    new Trigger(m_driverController.leftStick())
-       .onTrue(new TurnToAngle(m_robotDrive, 90));
+ //   new Trigger(m_driverController.leftStick())
+   //    .onTrue(new TurnToAngle(m_robotDrive, 90));
 
      new Trigger(m_driverController.rightStick())
-         .onTrue(new VisionAlignment(m_robotVision, m_robotDrive, false));
+         .onTrue(new VisionAlignment(m_robotVision, m_robotDrive, true));
   }
 
   /**

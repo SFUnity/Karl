@@ -28,27 +28,28 @@ public class VisionAlignment extends CommandBase {
     if (HasTarget) {
       HasTarget = true;
       if (result.getBestTarget().getYaw() < -3) {
-        System.out.print("I can move!");
+   //     System.out.print("I can move!");
         new TurnToAngle(m_drive, result.getBestTarget().getYaw());
         }
       else if (result.getBestTarget().getYaw() > 3) {
-        System.out.print("I can move!");
+   //     System.out.print("I can move!");
         new TurnToAngle(m_drive, result.getBestTarget().getYaw());
         }
       else {
-        System.out.print("All done!");
-        done = true;
+     //   System.out.print("All done!");
+      //  done = true;
         }
       }
     else {
       HasTarget = false;
-      done = true;
+    //  done = true;
     }
   }
 
 
   public boolean isFinished() {
-    return done;
+   // return done;
+   return true;
 
   }
   
