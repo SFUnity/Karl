@@ -4,11 +4,9 @@
 
 package frc.robot;
 
-import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.DefaultArm;
-import frc.robot.commands.TurnToAngle;
 import frc.robot.commands.Turn;
 import frc.robot.commands.VisionAlignment;
 import frc.robot.commands.Auto.ComplexAuto;
@@ -47,7 +45,8 @@ public class RobotContainer {
   private final Command kPIDDock = new PIDDock(m_robotDrive, false);
   private final Command kNothingAuto = new DefaultAuto(m_robotArm, m_robotDrive, 3);
   // private final Command kBump = new ComplexAuto(m_robotDrive, m_robotArm, 1);
-  private final Command kBump = new PlacePieceSimple(m_robotArm, CONE).andThen(new DriveDistance(m_robotDrive, -8, -0.5));
+  private final Command kBump = new PlacePieceSimple(m_robotArm, CONE)
+      .andThen(new DriveDistance(m_robotDrive, -8, -0.5));
   private final Command kNormal = new ComplexAuto(m_robotDrive, m_robotArm, 2);
   private final Command kNothing2 = new ComplexAuto(m_robotDrive, m_robotArm, 0);
   private final Command kPlaceCone = new PlacePieceSimple(m_robotArm, CONE);
@@ -109,7 +108,7 @@ public class RobotContainer {
     // Put the chooser on the dashboard
     Shuffleboard.getTab("Main").add("Auto Options", m_chooser);
     Shuffleboard.getTab("Main").add("Piece Options", m_chooser2);
-    //Shuffleboard.putData("PID Controller", RobotContainer.getPIDController());
+    // Shuffleboard.putData("PID Controller", RobotContainer.getPIDController());
   }
 
   /**
@@ -152,14 +151,14 @@ public class RobotContainer {
     new Trigger(m_driverController.pov(270)).whileTrue(new Turn(
         m_robotDrive, 270));
 
-  //  new Trigger(m_driverController.rightStick()) 
-    //   .onTrue(new TurnToAngle(m_robotDrive, 180));
+    // new Trigger(m_driverController.rightStick())
+    // .onTrue(new TurnToAngle(m_robotDrive, 180));
 
- //   new Trigger(m_driverController.leftStick())
-   //    .onTrue(new TurnToAngle(m_robotDrive, 90));
+    // new Trigger(m_driverController.leftStick())
+    // .onTrue(new TurnToAngle(m_robotDrive, 90));
 
-     new Trigger(m_driverController.rightStick())
-         .onTrue(new VisionAlignment(m_robotVision, m_robotDrive, true));
+    new Trigger(m_driverController.rightStick())
+        .onTrue(new VisionAlignment(m_robotVision, m_robotDrive, true));
   }
 
   /**

@@ -1,13 +1,8 @@
 package frc.robot.commands.Auto;
 
-import java.util.Map;
-
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveSubsystem;
 
@@ -19,11 +14,11 @@ public class PIDDock extends CommandBase {
     private final PIDController dockPID;
     public final double BalancingTolerance; // tolerance in degrees from 0 to decide if the robot is balanced/docked
     // private ShuffleboardTab tab = Shuffleboard.getTab("Main");
-    // private GenericEntry balanced = 
-    //      tab.add("Balanced?", false)
-    //         .withWidget("Boolean Box")
-    //         .withProperties(Map.of("colorWhenTrue", "green", "colorWhenFalse", "maroon"))
-    //         .getEntry();
+    // private GenericEntry balanced =
+    // tab.add("Balanced?", false)
+    // .withWidget("Boolean Box")
+    // .withProperties(Map.of("colorWhenTrue", "green", "colorWhenFalse", "maroon"))
+    // .getEntry();
     private final double dockP = 0.02;
 
     public PIDDock(DriveSubsystem drivetrain, boolean reverse) {
