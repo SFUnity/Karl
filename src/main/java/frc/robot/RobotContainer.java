@@ -51,11 +51,8 @@ public class RobotContainer {
         private final Command kPIDDock = new PIDDock(m_robotDrive, false);
         // Gen2
         private final Command kPlacePiece = new PlacePieceSimple(m_robotArm, CONE);
-        private final Command kDriveBack8 = new DriveDistance(m_robotDrive, -8, -0.5);
         private final Command kDriveForward2 = new DriveDistance(m_robotDrive, 2, 0.5);
         private final Command kTurnAround = new TurnToAngle(m_robotDrive, 180);
-        private final Command kTurn90 = new TurnToAngle(m_robotDrive, 90);
-        // private final Command kSide = Commands.sequence(kPlacePiece, kDriveBack8, kTurn90);
         private final Command kAutoDock = Commands.sequence(kPlacePiece, kTurnAround, kDriveForward2, kPIDDock);
         private final Command kNothing2 = Commands.sequence();
         private final SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -98,11 +95,9 @@ public class RobotContainer {
                 m_chooser.addOption("normal", kNormalAuto);
                 m_chooser.addOption("middle", kMiddleAuto);
                 m_chooser.addOption("bump", kBumpAuto);
-                m_chooser.addOption("knight dock", kPIDDock);
-                // m_chooser.addOption("side", kSide);
+                m_chooser.addOption("dock only", kPIDDock);
                 m_chooser.addOption("nothing2", kNothing2);
                 m_chooser.addOption("place cone", kPlacePiece);
-                m_chooser.addOption("drive back 8ft", kDriveBack8);
                 m_chooser.addOption("auto dock", kAutoDock);
 
                 m_chooser2.addOption("cube", CUBE);
@@ -111,7 +106,6 @@ public class RobotContainer {
                 // Put the chooser on the dashboard
                 Shuffleboard.getTab("Main").add("Auto Options", m_chooser);
                 Shuffleboard.getTab("Main").add("Piece Options", m_chooser2);
-                // Shuffleboard.putData("PID Controller", RobotContainer.getPIDController());
         }
 
         /**
