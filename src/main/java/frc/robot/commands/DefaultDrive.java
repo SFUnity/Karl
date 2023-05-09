@@ -26,7 +26,8 @@ public class DefaultDrive extends CommandBase {
    * @param forward   The control input for the right motors
    * @param backward  The control input for the right motors
    */
-  public DefaultDrive(DriveSubsystem subsystem, DoubleSupplier left, DoubleSupplier right, DoubleSupplier forward, DoubleSupplier backward, double speed) {
+  public DefaultDrive(DriveSubsystem subsystem, DoubleSupplier left, DoubleSupplier right, 
+                      DoubleSupplier forward, DoubleSupplier backward, double speed) {
     m_drive = subsystem;
     m_left = left;
     m_right = right;
